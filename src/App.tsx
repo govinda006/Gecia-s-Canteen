@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from "react";
+import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import Loader from "./loader/loader";
+import Navbar from "./navbar/navbar";
+import Admin from "./pages/Admin";
+import Home from "./pages/Home";
 
 const App: React.FC = () => {
   const [loading, setLoading] = useState(true);
@@ -11,13 +15,14 @@ const App: React.FC = () => {
 
   return (
     <>
-      {loading ? (
-        <Loader />
-      ) : (
-        <div className="flex justify-center items-center min-h-screen bg-teal-900 text-white">
-          <h1 className="text-3xl font-bold">Gecia's Canteen</h1>
-        </div>
-      )}
+      <Router>
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/admin" element={<Admin />} />
+        </Routes>
+      </Router>
+      {loading ? <Loader /> : console.log("Error")}
     </>
   );
 };
