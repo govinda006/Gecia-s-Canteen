@@ -6,11 +6,15 @@ const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <nav className="bg-teal-900 text-white shadow-md flex justify-around">
-      <div className="container mx-auto flex justify-between items-center p-4">
+    <nav
+      className="bg-teal-900 text-white shadow-md flex flex-col md:flex-row justify-around"
+      style={{ backgroundColor: "#04424D" }}
+    >
+      <div className="container mx-auto flex justify-between items-center p-4 m-2">
         {/* Logo */}
         <Link to="/" className="flex items-center space-x-2">
-          <span className="text-2xl font-bold">🍽️ Gecia's Canteen</span>
+          <img src="./Atlas-Logo.gif" alt="Logo" className="h-10 w-30" />
+          {/* <span className="text-2xl font-bold">🍽️ Gecia's Canteen</span> */}
         </Link>
 
         {/* Desktop Links */}
@@ -35,7 +39,7 @@ const Navbar: React.FC = () => {
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
         >
-          <div className="space-x-6">
+          <div className="space-y-4">
             <NavItem to="/">Home</NavItem>
             <NavItem to="/admin">Admin</NavItem>
           </div>

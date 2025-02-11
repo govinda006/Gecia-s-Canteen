@@ -3,10 +3,10 @@ import React from "react";
 
 const Loader: React.FC = () => {
   return (
-    <div className="fixed inset-0 flex flex-col items-center justify-center bg-gradient-to-b from-teal-900 to-teal-700">
+    <div className="fixed inset-0 flex flex-col items-center justify-center bg-gradient-to-b from-[#04424D] to-[#04424D]">
       {/* Rotating Cutlery */}
       <motion.div
-        className="relative flex items-center justify-center w-24 h-24 rounded-full border-4 border-teal-500 shadow-lg"
+        className="relative flex items-center justify-center w-24 h-24 rounded-full border-4 border-white shadow-lg shadow-gray-500"
         animate={{ rotate: 360 }}
         transition={{ repeat: Infinity, duration: 1.5, ease: "linear" }}
       >

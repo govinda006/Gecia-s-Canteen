@@ -9,12 +9,12 @@ const App: React.FC = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 3000); // Simulated 3-second loading
+    const timer = setTimeout(() => setLoading(false), 500); // Simulated 3-second loading
     return () => clearTimeout(timer);
   }, []);
 
   return (
-    <>
+    <div style={{ backgroundColor: "#e0e0e0", minHeight: "100vh" }}>
       <Router>
         <Navbar />
         <Routes>
@@ -22,8 +22,8 @@ const App: React.FC = () => {
           <Route path="/admin" element={<Admin />} />
         </Routes>
       </Router>
-      {loading ? <Loader /> : console.log("Error")}
-    </>
+      {loading ? <Loader /> : null}
+    </div>
   );
 };
 

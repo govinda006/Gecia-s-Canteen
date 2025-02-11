@@ -1,0 +1,290 @@
+{
+  "weeks": {
+    "name": "First Weeks menu",
+    "days": [
+      {
+        "date": "2025-02-03",
+        "day": "Monday",
+        "meals": {
+          "breakfast": [
+            {
+              "option": "Kanda Poha",
+              "calories": { "value": 289, "unit": "calories" },
+              "accompaniment": "Lemon",
+              "fruits": "None",
+              "tea": { "value": 100, "unit": "ml" },
+              "macronutrients": {
+                "carbohydrates": { "value": 48, "unit": "%" },
+                "protein": { "value": 10, "unit": "%" },
+                "fat": { "value": 42, "unit": "%" }
+              }
+            }
+          ],
+          "diet_meal": [
+            {
+              "option": "Tali Chutney",
+              "calories": { "value": 166.83, "unit": "calories" },
+              "accompaniment": "Moong Sprouts",
+              "soup": "Hot & Sour Soup",
+              "macronutrients": {
+                "carbohydrates": { "value": 48, "unit": "%" },
+                "protein": { "value": 10, "unit": "%" },
+                "fat": { "value": 42, "unit": "%" }
+              },
+              "boiled_vegetable": "Boiled Pumpkin"
+            }
+          ],
+          "lunch": [
+            {
+              "theme": "Arakanai",
+              "salad": "Kakdi Koumbir",
+              "gravy_veg": "Aloo Fartita Cha Bhaji",
+              "dry_veg": "Baingan Bhati",
+              "rice": "Masala Bhar",
+              "dal": "Amm",
+              "chutney_pickle": "Thecha",
+              "papad": "Kandai Papad",
+              "curd": "Curd",
+              "chapati": "Chapati",
+              "calories": {
+                "gravy_veg": { "value": 313, "unit": "calories" },
+                "dry_veg": { "value": 308, "unit": "calories" },
+                "rice": { "value": 344, "unit": "calories" },
+                "dal": { "value": 144, "unit": "calories" },
+                "papad": { "value": 43, "unit": "calories" },
+                "curd": { "value": 307.41, "unit": "calories" },
+                "chapati": { "value": 98.5, "unit": "kcal" }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "date": "2025-02-04",
+        "day": "Tuesday",
+        "meals": {
+          "breakfast": [
+            {
+              "option": "Idli-Anda Barji Pav",
+              "calories": { "value": 174, "unit": "kcal" },
+              "accompaniment": "Sambar Chutney",
+              "fruits": "None",
+              "tea": { "value": 200, "unit": "ml" },
+              "macronutrients": {
+                "carbohydrates": { "value": 48, "unit": "%" },
+                "protein": { "value": 10, "unit": "%" },
+                "fat": { "value": 42, "unit": "%" }
+              }
+            }
+          ],
+          "diet_meal": [
+            {
+              "option": "Chickpea Salad",
+              "calories": { "value": 108, "unit": "kcal" },
+              "accompaniment": "Boiled Moong",
+              "soup": "Garlic Soup",
+              "macronutrients": {
+                "carbohydrates": { "value": 48, "unit": "%" },
+                "protein": { "value": 10, "unit": "%" },
+                "fat": { "value": 42, "unit": "%" }
+              },
+              "boiled_vegetable": "Boiled Carrot"
+            }
+          ],
+          "lunch": [
+            {
+              "theme": "Gujarati",
+              "salad": "Cabbage Sambham",
+              "gravy_veg": "Marat Ka Nimma",
+              "dry_veg": "Batata Shask",
+              "rice": "Gutta Pulav",
+              "dal": "Gujarati Kadhi",
+              "chutney_pickle": "Shiyawadi Red Chilly Pickle",
+              "papad": "Khichiya Papad",
+              "curd": "Boondi Raita",
+              "chapati": "Chapati: 3 nos",
+              "bhakri": { "value": 113, "unit": "calories" },
+              "calories": {
+                "gravy_veg": { "value": 375, "unit": "calories" },
+                "dry_veg": { "value": 114, "unit": "calories" },
+                "rice": { "value": 1000, "unit": "calories" },
+                "dal": { "value": 300, "unit": "calories" },
+                "papad": { "value": 43, "unit": "calories" }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "date": "2025-02-05",
+        "day": "Wednesday",
+        "meals": {
+          "breakfast": [
+            {
+              "option": "Samosa",
+              "calories": { "value": 308, "unit": "calories" },
+              "accompaniment": "Imli Chutney",
+              "fruits": "None",
+              "tea": { "value": 100, "unit": "ml" },
+              "macronutrients": {
+                "carbohydrates": { "value": 48, "unit": "%" },
+                "protein": { "value": 10, "unit": "%" },
+                "fat": { "value": 42, "unit": "%" }
+              }
+            }
+          ],
+          "diet_meal": [
+            {
+              "option": "Unapan Chutney",
+              "calories": { "value": 545, "unit": "calories" },
+              "accompaniment": "Chickpea",
+              "soup": "Manchow Soup",
+              "macronutrients": {
+                "carbohydrates": { "value": 48, "unit": "%" },
+                "protein": { "value": 10, "unit": "%" },
+                "fat": { "value": 42, "unit": "%" }
+              },
+              "boiled_vegetable": "Boiled Beetroot"
+            }
+          ],
+          "lunch": [
+            {
+              "theme": "Punjabi",
+              "salad": "Pico De Gallo",
+              "gravy_veg": "Chania Punjabi",
+              "dry_veg": "Tas Veg",
+              "rice": "Bamai Rice",
+              "dal": "Butter De Talks",
+              "chutney_pickle": "Punjabi Chilly Pickle",
+              "papad": "Roasted Dapat",
+              "curd": "Curd",
+              "chapati": "Chapati - 3 nos",
+              "bhakri": "1 nos Bhakri",
+              "calories": {
+                "gravy_veg": { "value": 230, "unit": "calories" },
+                "dry_veg": { "value": 200, "unit": "g" },
+                "rice": { "value": 18, "unit": "calories" },
+                "dal": { "value": 300, "unit": "calories" },
+                "papad": { "value": 113, "unit": "calories" }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "date": "2025-02-06",
+        "day": "Thursday",
+        "meals": {
+          "breakfast": [
+            {
+              "option": "Khichdi & Ragi Upma-Vegetable Khichdi",
+              "calories": { "value": null, "unit": "calories" },
+              "accompaniment": "Green Chutney, Curd",
+              "fruits": "None",
+              "tea": { "value": 300, "unit": "ml" },
+              "macronutrients": {
+                "carbohydrates": { "value": 48, "unit": "%" },
+                "protein": { "value": 10, "unit": "%" },
+                "fat": { "value": 42, "unit": "%" }
+              }
+            }
+          ],
+          "diet_meal": [
+            {
+              "option": "Oats Khichadi",
+              "calories": { "value": 175, "unit": "calories" },
+              "accompaniment": "Boiled Raima",
+              "soup": "Moong Dal Shorba",
+              "macronutrients": {
+                "carbohydrates": { "value": 48, "unit": "%" },
+                "protein": { "value": 10, "unit": "%" },
+                "fat": { "value": 42, "unit": "%" }
+              },
+              "boiled_vegetable": "Boiled Mix Veg"
+            }
+          ],
+          "lunch": [
+            {
+              "theme": "South Indian",
+              "salad": "Chana Sundal",
+              "gravy_veg": "Var Konna",
+              "dry_veg": "Beetroot Poriyal",
+              "rice": "Khara Pongal Staam Rice",
+              "dal": "Andlus Sambar",
+              "chutney_pickle": "Thecha",
+              "papad": "Apalam Papad",
+              "curd": "Curd",
+              "chapati": "Chapati - 3 nos",
+              "calories": {
+                "gravy_veg": { "value": 203.5, "unit": "calories" },
+                "dry_veg": { "value": 100.47, "unit": "calories" },
+                "rice": { "value": 41.5, "unit": "calories" },
+                "dal": { "value": 320, "unit": "calories" },
+                "papad": { "value": 42, "unit": "cal" },
+                "curd": { "value": 300, "unit": "calories" },
+                "chutney_pickle": { "value": 98.5, "unit": "kcal" }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "date": "2025-02-07",
+        "day": "Friday",
+        "meals": {
+          "breakfast": [
+            {
+              "option": "Kolhapuri Misal Pav",
+              "calories": { "value": 288, "unit": "calories" },
+              "accompaniment": "Oreon Chaney, Curd",
+              "fruits": "None",
+              "tea": { "value": 300, "unit": "ml" },
+              "macronutrients": {
+                "carbohydrates": { "value": 48, "unit": "%" },
+                "protein": { "value": 10, "unit": "%" },
+                "fat": { "value": 42, "unit": "%" }
+              }
+            }
+          ],
+          "diet_meal": [
+            {
+              "option": "Veg Sandwich",
+              "calories": { "value": 206.83, "unit": "calories" },
+              "accompaniment": "Boiled Masoor",
+              "soup": "Tomato Soup",
+              "macronutrients": {
+                "carbohydrates": { "value": 48, "unit": "%" },
+                "protein": { "value": 10, "unit": "%" },
+                "fat": { "value": 42, "unit": "%" }
+              },
+              "boiled_vegetable": "Panoor Bhurji"
+            }
+          ],
+          "lunch": [
+            {
+              "theme": "Rajasthani",
+              "salad": "Kachumber Salad",
+              "gravy_veg": "Gatta Curry",
+              "dry_veg": "Jodhpuri Veggies",
+              "rice": "Mawa Pulao",
+              "dal": "Moong Dal",
+              "chutney_pickle": "Panchkuta Lonji",
+              "papad": "Papad",
+              "curd": "Curd",
+              "bhakri": "1 nos Bhakri",
+              "calories": {
+                "gravy_veg": { "value": 300, "unit": "calories" },
+                "dry_veg": { "value": 237, "unit": "calories" },
+                "rice": { "value": 98.5, "unit": "kcal" },
+                "dal": { "value": null, "unit": "calories" },
+                "papad": { "value": null, "unit": "calories" },
+                "curd": { "value": null, "unit": "calories" },
+                "chutney_pickle": { "value": null, "unit": "calories" }
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
+}
