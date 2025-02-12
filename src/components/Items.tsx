@@ -16,11 +16,21 @@ const textVariants = {
   visible: { opacity: 1, x: 0, transition: { duration: 1, ease: "easeOut" } },
 };
 
-const Items: React.FC = () => {
+const foodItems = [
+  "🥞 Breakfast",
+  "🥗 Diet Food",
+  "🍛 Lunch",
+];
+
+interface ItemsProps {
+  onBack: () => void; // Function to handle going back
+}
+
+const Items: React.FC<ItemsProps> = ({ onBack }) => {
   return (
     <motion.div
       id="items-section"
-      className="items-section w-full h-screen flex flex-col items-center justify-center px-6 relative overflow-hidden"
+      className="items-section w-full min-h-screen flex flex-col items-center justify-center px-6 relative overflow-hidden"
       style={{ backgroundColor: "#04424D" }}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
@@ -59,14 +69,7 @@ const Items: React.FC = () => {
 
       {/* Animated Food Items */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-4xl relative z-10">
-        {[
-          "🍕 Pizza",
-          "🍔 Burger",
-          "🥗 Salad",
-          "🍣 Sushi",
-          "🍩 Doughnut",
-          "🍛 Curry",
-        ].map((item, index) => (
+        {foodItems.map((foodItem, index) => (
           <motion.div
             key={index}
             className="bg-white shadow-lg rounded-lg p-6 flex items-center justify-center text-xl font-semibold border border-teal-300"
@@ -79,11 +82,22 @@ const Items: React.FC = () => {
               boxShadow: "0px 0px 15px rgba(0, 255, 255, 0.8)",
               backgroundColor: "#083B3F",
             }}
+            whileTap={{ scale: 0.95 }}
           >
-            {item}
+            {foodItem}
           </motion.div>
         ))}
       </div>
+
+      {/* Hide Menu Button */}
+      <motion.button
+        className="mt-6 px-6 py-3 rounded-full text-lg font-semibold text-white bg-red-500 hover:bg-red-600 transition-all shadow-lg relative z-20"
+        whileHover={{ scale: 1.1, y: -5 }}
+        whileTap={{ scale: 0.9 }}
+        onClick={onBack}
+      >
+        🔼 Hide Menu
+      </motion.button>
     </motion.div>
   );
 };

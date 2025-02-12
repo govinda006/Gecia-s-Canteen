@@ -15,6 +15,7 @@ const App: React.FC = () => {
 
   return (
     <div style={{ backgroundColor: "#e0e0e0", minHeight: "100vh" }}>
+      {loading ? <Loader /> : null}
       <Router>
         <Navbar />
         <Routes>
@@ -22,7 +23,6 @@ const App: React.FC = () => {
           <Route path="/admin" element={<Admin />} />
         </Routes>
       </Router>
-      {loading ? <Loader /> : null}
     </div>
   );
 };
