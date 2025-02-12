@@ -3,7 +3,11 @@ import React from "react";
 
 const Loader: React.FC = () => {
   return (
-    <div className="fixed inset-0 flex flex-col items-center justify-center bg-gradient-to-b from-[#04424D] to-[#04424D]">
+    <section
+      className="fixed inset-0 flex flex-col items-center justify-center bg-gradient-to-b from-[#04424D] to-[#04424D]"
+      aria-label="Loading"
+    >
+      <title>Loading</title>
       {/* Rotating Cutlery */}
       <motion.div
         className="relative flex items-center justify-center w-24 h-24 rounded-full border-4 border-white shadow-lg shadow-gray-500"
@@ -23,7 +27,7 @@ const Loader: React.FC = () => {
       >
         Cooking up something delicious...
       </motion.p>
-    </div>
+    </section>
   );
 };
 

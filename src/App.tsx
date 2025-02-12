@@ -9,17 +9,20 @@ const App: React.FC = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 500); // Simulated 3-second loading
+    const timer = setTimeout(() => setLoading(false), 2000); // Adjust the duration as needed
     return () => clearTimeout(timer);
   }, []);
 
+  if (loading) {
+    return <Loader />;
+  }
+
   return (
     <div style={{ backgroundColor: "#e0e0e0", minHeight: "100vh" }}>
-      {loading ? <Loader /> : null}
       <Router>
         <Navbar />
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<Home loading={loading} />} />
           <Route path="/admin" element={<Admin />} />
         </Routes>
       </Router>
