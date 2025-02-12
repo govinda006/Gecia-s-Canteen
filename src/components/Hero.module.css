@@ -1,0 +1,35 @@
+.heroSection {
+  background-color: #022b33;
+}
+
+.backgroundImage {
+  background-image: url('https://www.transparenttextures.com/patterns/food.png');
+}
+
+.backgroundGlow {
+  background: radial-gradient(circle, rgba(0,128,128,0.2) 0%, transparent 100%);
+}
+
+.floatingElement {
+  transition: transform 0.2s ease-in-out;
+}
+
+.heroText {
+  color: #EAEAEA;
+  font-family: 'Merriweather', serif;
+}
+
+.heroTextGradient {
+  background: linear-gradient(to right, #38b2ac, #68d391);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.subheading {
+  transition: transform 0.2s ease-in-out;
+}
+
+.ctaButton {
+  transition: transform 0.2s ease-in-out;
+}

@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import React from "react";
+import styles from './Hero.module.css'; // Import CSS module
 
 const foodVariants = {
   initial: { y: 0 },
@@ -19,33 +20,28 @@ interface HeroProps {
 
 const Hero: React.FC<HeroProps> = ({ onShowMenu }) => {
   return (
-    <motion.div
-      className="hero-section w-full min-h-screen flex flex-col items-center justify-center px-6 relative overflow-hidden"
-      style={{ backgroundColor: "#022B33" }}
+    <motion.section // Use <section> for better semantics
+      className={`${styles.heroSection} w-full min-h-screen flex flex-col items-center justify-center px-6 relative overflow-hidden`}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 1.5, ease: "easeOut" }}
     >
       {/* Background Vector Animation */}
       <motion.div
-        className="absolute inset-0 bg-cover bg-center"
-        style={{
-          backgroundImage:
-            "url('https://www.transparenttextures.com/patterns/food.png')",
-        }}
+        className={`absolute inset-0 bg-cover bg-center ${styles.backgroundImage}`}
         initial={{ opacity: 0 }}
         animate={{ opacity: 0.2 }}
         transition={{ duration: 2 }}
       ></motion.div>
 
       {/* Background Glow */}
-      <div className="absolute top-0 left-0 w-full h-full bg-gradient-radial from-teal-900/20 to-transparent"></div>
+      <div className={`absolute top-0 left-0 w-full h-full ${styles.backgroundGlow}`}></div>
 
       {/* Floating Food Elements */}
       <motion.img
         src="https://img.icons8.com/color/96/pizza.png"
-        alt="Pizza"
-        className="absolute top-16 left-10 w-14 md:w-20"
+        alt="Floating Pizza"
+        className={`absolute top-16 left-10 w-14 md:w-20 ${styles.floatingElement}`}
         variants={foodVariants}
         initial="initial"
         animate="animate"
@@ -53,8 +49,8 @@ const Hero: React.FC<HeroProps> = ({ onShowMenu }) => {
       />
       <motion.img
         src="https://img.icons8.com/color/96/hamburger.png"
-        alt="Burger"
-        className="absolute top-32 right-10 w-16 md:w-24"
+        alt="Floating Burger"
+        className={`absolute top-32 right-10 w-16 md:w-24 ${styles.floatingElement}`}
         variants={foodVariants}
         initial="initial"
         animate="animate"
@@ -62,8 +58,8 @@ const Hero: React.FC<HeroProps> = ({ onShowMenu }) => {
       />
       <motion.img
         src="https://img.icons8.com/color/96/salad.png"
-        alt="Salad"
-        className="absolute bottom-16 left-1/4 w-14 md:w-20"
+        alt="Floating Salad"
+        className={`absolute bottom-16 left-1/4 w-14 md:w-20 ${styles.floatingElement}`}
         variants={foodVariants}
         initial="initial"
         animate="animate"
@@ -71,8 +67,8 @@ const Hero: React.FC<HeroProps> = ({ onShowMenu }) => {
       />
       <motion.img
         src="https://img.icons8.com/color/96/sushi.png"
-        alt="Sushi"
-        className="absolute bottom-24 right-20 w-14 md:w-20"
+        alt="Floating Sushi"
+        className={`absolute bottom-24 right-20 w-14 md:w-20 ${styles.floatingElement}`}
         variants={foodVariants}
         initial="initial"
         animate="animate"
@@ -80,8 +76,8 @@ const Hero: React.FC<HeroProps> = ({ onShowMenu }) => {
       />
       <motion.img
         src="https://img.icons8.com/color/96/doughnut.png"
-        alt="Doughnut"
-        className="absolute bottom-10 left-10 w-12 md:w-16"
+        alt="Floating Doughnut"
+        className={`absolute bottom-10 left-10 w-12 md:w-16 ${styles.floatingElement}`}
         variants={foodVariants}
         initial="initial"
         animate="animate"
@@ -90,25 +86,21 @@ const Hero: React.FC<HeroProps> = ({ onShowMenu }) => {
 
       {/* Hero Text */}
       <motion.h1
-        className="text-3xl md:text-5xl font-bold text-center drop-shadow-lg"
-        style={{
-          color: "#EAEAEA",
-          fontFamily: '"Merriweather", serif',
-        }}
+        className={`text-3xl md:text-5xl font-bold text-center drop-shadow-lg ${styles.heroText}`}
         initial={{ opacity: 0, y: -30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1 }}
         whileHover={{ scale: 1.05 }}
       >
         Welcome to{" "}
-        <span className="bg-gradient-to-r from-teal-400 to-green-300 text-transparent bg-clip-text">
+        <span className={styles.heroTextGradient}>
           Gecia's Canteen
         </span>
       </motion.h1>
 
       {/* Subheading */}
       <motion.p
-        className="mt-4 text-lg md:text-xl text-gray-300 text-center max-w-2xl"
+        className={`mt-4 text-lg md:text-xl text-gray-300 text-center max-w-2xl ${styles.subheading}`}
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1.2, delay: 0.5 }}
@@ -126,7 +118,7 @@ const Hero: React.FC<HeroProps> = ({ onShowMenu }) => {
         transition={{ duration: 1.2, delay: 1 }}
       >
         <motion.button
-          className="px-6 py-3 rounded-full text-lg font-semibold text-white bg-white/20 backdrop-blur-lg border border-white/30 hover:bg-white/30 transition-all shadow-lg"
+          className={`px-6 py-3 rounded-full text-lg font-semibold text-white bg-white/20 backdrop-blur-lg border border-white/30 hover:bg-white/30 transition-all shadow-lg ${styles.ctaButton}`}
           whileHover={{ scale: 1.1, y: -5 }}
           whileTap={{ scale: 0.9 }}
           onClick={onShowMenu} // Call onShowMenu to show Items
@@ -134,7 +126,7 @@ const Hero: React.FC<HeroProps> = ({ onShowMenu }) => {
           🍽 Explore Menu
         </motion.button>
       </motion.div>
-    </motion.div>
+    </motion.section>
   );
 };
 
