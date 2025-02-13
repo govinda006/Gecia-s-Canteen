@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import React from "react";
-import { foodItems, getCurrentDayTheme } from "../constants";
 import { themeColors } from "../data/themeColors";
+import { foodItems, getCurrentDayTheme } from "./items-constants";
 import "./Items.css";
 import {
   BackgroundAnimation,
@@ -24,7 +24,7 @@ interface FoodItem {
 }
 
 const Items: React.FC<ItemsProps> = ({ onBack }) => {
-  const theme: string = getCurrentDayTheme() || "defaultTheme";
+  const { theme, type } = getCurrentDayTheme();
   const currentDate = new Date().toLocaleDateString();
   const themeColor = themeColors[theme] || "#ffffff"; // Default to white if theme not found
 
@@ -40,7 +40,7 @@ const Items: React.FC<ItemsProps> = ({ onBack }) => {
       <MenuTitle />
       <MenuDescription />
       <CurrentDate date={currentDate} />
-      <ThemeTitle theme={theme} color={themeColor} />
+      <ThemeTitle theme={theme} type={type} color={themeColor} />
       <div className="food-items">
         {foodItems.map((foodItem: FoodItem, index: number) => (
           <FoodItemComponent key={index} foodItem={foodItem} index={index} />

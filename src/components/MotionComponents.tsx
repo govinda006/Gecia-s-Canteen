@@ -1,6 +1,10 @@
 import { motion } from "framer-motion";
 import React from "react";
-import { backgroundVariants, textVariants } from "../constants";
+import {
+  backgroundVariants,
+  getCurrentDayTheme,
+  textVariants,
+} from "./items-constants";
 
 // Define types for foodItems and weeklyThemes
 interface FoodItem {
@@ -52,7 +56,11 @@ export const CurrentDate: React.FC<{ date: string }> = ({ date }) => (
   </motion.div>
 );
 
-export const ThemeTitle: React.FC<{ theme: string; color: string }> = ({ theme, color }) => (
+export const ThemeTitle: React.FC<{
+  theme: string;
+  type: string;
+  color: string;
+}> = ({ theme, type, color }) => (
   <motion.div
     className="theme-title"
     style={{ color }} // Apply the theme color
@@ -60,11 +68,15 @@ export const ThemeTitle: React.FC<{ theme: string; color: string }> = ({ theme, 
     animate={{ opacity: 1, y: 0 }}
     transition={{ duration: 1, ease: "easeOut" }}
   >
-    {`Today's Theme: ${theme}`}
+    {`Today's Lunch Theme: ${theme} `}
+    {type === "veg" ? "🌱" : "🍗"}
   </motion.div>
 );
 
-export const FoodItemComponent: React.FC<{ foodItem: FoodItem; index: number }> = ({ foodItem, index }) => (
+export const FoodItemComponent: React.FC<{
+  foodItem: FoodItem;
+  index: number;
+}> = ({ foodItem, index }) => (
   <motion.div
     key={index}
     className="food-item"
@@ -83,7 +95,9 @@ export const FoodItemComponent: React.FC<{ foodItem: FoodItem; index: number }> 
   </motion.div>
 );
 
-export const HideMenuButton: React.FC<{ onBack: () => void }> = ({ onBack }) => (
+export const HideMenuButton: React.FC<{ onBack: () => void }> = ({
+  onBack,
+}) => (
   <motion.button
     className="hide-menu-button"
     whileHover={{ scale: 1.1, y: -5 }}
@@ -93,3 +107,21 @@ export const HideMenuButton: React.FC<{ onBack: () => void }> = ({ onBack }) => 
     🔼 Hide Menu
   </motion.button>
 );
+
+// Example usage
+const App: React.FC = () => {
+  const { theme, type } = getCurrentDayTheme();
+
+  return (
+    <div>
+      <BackgroundAnimation />
+      <MenuTitle />
+      <MenuDescription />
+      <CurrentDate date={new Date().toLocaleDateString()} />
+      <ThemeTitle theme={theme} type={type} color="#FF6347" />
+      {/* Render other components as needed */}
+    </div>
+  );
+};
+
+export default App;
