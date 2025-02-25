@@ -1,9 +1,9 @@
 import { motion } from "framer-motion";
 import React from "react";
 import {
-  backgroundVariants,
-  getCurrentDayTheme,
-  textVariants,
+    backgroundVariants,
+    getCurrentDayTheme,
+    textVariants,
 } from "./items-constants";
 
 // Define types for foodItems and weeklyThemes
@@ -45,16 +45,16 @@ export const MenuDescription: React.FC = () => (
   </motion.p>
 );
 
-export const CurrentDate: React.FC<{ date: string }> = ({ date }) => (
-  <motion.div
-    className="current-date"
-    initial={{ opacity: 0, y: -20 }}
-    animate={{ opacity: 1, y: 0 }}
-    transition={{ duration: 1, ease: "easeOut" }}
-  >
-    {`Today's Date: ${date}`}
-  </motion.div>
-);
+// export const CurrentDate: React.FC<{ date: string }> = ({ date }) => (
+//   <motion.div
+//     className="current-date"
+//     initial={{ opacity: 0, y: -20 }}
+//     animate={{ opacity: 1, y: 0 }}
+//     transition={{ duration: 1, ease: "easeOut" }}
+//   >
+//     {`Today's Date: ${date}`}
+//   </motion.div>
+// );
 
 export const ThemeTitle: React.FC<{
   theme: string;
@@ -76,7 +76,8 @@ export const ThemeTitle: React.FC<{
 export const FoodItemComponent: React.FC<{
   foodItem: FoodItem;
   index: number;
-}> = ({ foodItem, index }) => (
+  onClick?: () => void;
+}> = ({ foodItem, index, onClick }) => (
   <motion.div
     key={index}
     className="food-item"
@@ -90,6 +91,7 @@ export const FoodItemComponent: React.FC<{
       backgroundColor: "#083B3F",
     }}
     whileTap={{ scale: 0.95 }}
+    onClick={onClick}
   >
     {foodItem.name}
   </motion.div>
@@ -117,7 +119,7 @@ const App: React.FC = () => {
       <BackgroundAnimation />
       <MenuTitle />
       <MenuDescription />
-      <CurrentDate date={new Date().toLocaleDateString()} />
+      {/* <CurrentDate date={new Date().toLocaleDateString()} /> */}
       <ThemeTitle theme={theme} type={type} color="#FF6347" />
       {/* Render other components as needed */}
     </div>

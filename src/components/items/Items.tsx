@@ -1,32 +1,27 @@
 import { motion } from "framer-motion";
 import React from "react";
-import { themeColors } from "../data/themeColors";
+import { themeColors } from "../../data/themeColors";
 import { foodItems, getCurrentDayTheme } from "./items-constants";
 import "./Items.css";
 import {
-  BackgroundAnimation,
-  CurrentDate,
-  FoodItemComponent,
-  HideMenuButton,
-  MenuDescription,
-  MenuTitle,
-  ThemeTitle,
+    BackgroundAnimation,
+    // CurrentDate,
+    FoodItemComponent,
+    HideMenuButton,
+    MenuDescription,
+    MenuTitle,
+    ThemeTitle,
 } from "./MotionComponents";
 
 interface ItemsProps {
   onBack: () => void;
+  onSelectBreakfast: () => void;
 }
 
-// Define types for foodItems and weeklyThemes
-interface FoodItem {
-  name: string;
-  description: string;
-}
-
-const Items: React.FC<ItemsProps> = ({ onBack }) => {
+const Items: React.FC<ItemsProps> = ({ onBack, onSelectBreakfast }) => {
   const { theme, type } = getCurrentDayTheme();
-  const currentDate = new Date().toLocaleDateString();
-  const themeColor = themeColors[theme] || "#ffffff"; // Default to white if theme not found
+  // const currentDate = new Date().toLocaleDateString();
+  const themeColor = themeColors[theme] || "#ffffff";
 
   return (
     <motion.div
@@ -39,11 +34,18 @@ const Items: React.FC<ItemsProps> = ({ onBack }) => {
       <BackgroundAnimation />
       <MenuTitle />
       <MenuDescription />
-      <CurrentDate date={currentDate} />
+      {/* <CurrentDate date={currentDate} /> */}
       <ThemeTitle theme={theme} type={type} color={themeColor} />
       <div className="food-items">
-        {foodItems.map((foodItem: FoodItem, index: number) => (
-          <FoodItemComponent key={index} foodItem={foodItem} index={index} />
+        {foodItems.map((foodItem, index) => (
+          <FoodItemComponent
+            key={index}
+            foodItem={foodItem}
+            index={index}
+            onClick={
+              foodItem.name === "🥞 Breakfast" ? onSelectBreakfast : undefined
+            }
+          />
         ))}
       </div>
       <HideMenuButton onBack={onBack} />

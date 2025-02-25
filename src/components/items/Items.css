@@ -20,7 +20,8 @@
 }
 
 .menu-title {
-  font-size: 5rem; /* Increased font size */
+  font-size: 4rem;
+  /* Increased font size */
   font-weight: bold;
   text-align: center;
   margin-bottom: 1.5rem;
@@ -53,19 +54,27 @@
   font-weight: bold;
   text-align: center;
   margin-bottom: 1.5rem;
-  color: #ffffff; /* Changed color to white for better visibility */
+  color: #ffffff;
+  /* Changed color to white for better visibility */
   position: relative;
   z-index: 10;
-  background-color: rgba(0, 0, 0, 5); /* Added semi-transparent background */
-  padding: 0.5rem 1rem; /* Added padding */
-  border-radius: 0.5rem; /* Added border radius */
+  background-color: rgba(0, 0, 0, 0.33);
+  /* Added semi-transparent background */
+  padding: 0.5rem 1rem;
+  /* Added padding */
+  border-radius: 0.5rem;
+  /* Added border radius */
 }
 
 .food-items {
-  display: flex; /* Changed from grid to flex */
-  flex-wrap: wrap; /* Allow items to wrap to the next line */
-  gap: 1rem; /* Adjusted gap between items */
-  justify-content: center; /* Center items horizontally */
+  display: flex;
+  /* Changed from grid to flex */
+  flex-wrap: wrap;
+  /* Allow items to wrap to the next line */
+  gap: 1rem;
+  /* Adjusted gap between items */
+  justify-content: center;
+  /* Center items horizontally */
   width: 100%;
   max-width: 64rem;
   position: relative;
@@ -76,16 +85,20 @@
   background-color: white;
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
   border-radius: 0.5rem;
-  padding: 1rem; /* Decreased padding */
+  padding: 1rem;
+  /* Decreased padding */
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1rem; /* Decreased font size */
+  font-size: 1rem;
+  /* Decreased font size */
   font-weight: 600;
   border: 1px solid #14b8a6;
   color: #14b8a6;
-  width: 150px; /* Set a fixed width */
-  height: 100px; /* Set a fixed height */
+  width: 150px;
+  /* Set a fixed width */
+  height: 100px;
+  /* Set a fixed height */
 }
 
 .drink-items {

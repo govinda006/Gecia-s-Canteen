@@ -1,24 +1,26 @@
 import React, { useState } from "react";
-import Hero from "../components/Hero";
-import Items from "../components/Items";
+import Breakfast from "../components/Foods/Breakfast";
+import Hero from "../components/Hero/Hero";
+import Items from "../components/items/Items";
 
-interface HomeProps {
-  loading: boolean;
-}
-
-const Home: React.FC<HomeProps> = ({ loading }) => {
-  const [showItems, setShowItems] = useState(false);
-
-  if (loading) {
-    return null; // Do not render content while loading
-  }
+const Home: React.FC = () => {
+  const [currentView, setCurrentView] = useState<
+    "hero" | "items" | "breakfast"
+  >("hero");
 
   return (
-    <div style={{ backgroundColor: "#f0f0f0", width: "100%" }}>
-      {showItems ? (
-        <Items onBack={() => setShowItems(false)} /> // Show Items, hide Hero
-      ) : (
-        <Hero onShowMenu={() => setShowItems(true)} /> // Show Hero, hide Items
+    <div className="bg-gray-100 w-full min-h-screen flex justify-center items-center">
+      {currentView === "hero" && (
+        <Hero onShowMenu={() => setCurrentView("items")} />
+      )}
+      {currentView === "items" && (
+        <Items
+          onBack={() => setCurrentView("hero")}
+          onSelectBreakfast={() => setCurrentView("breakfast")}
+        />
+      )}
+      {currentView === "breakfast" && (
+        <Breakfast onBack={() => setCurrentView("items")} />
       )}
     </div>
   );

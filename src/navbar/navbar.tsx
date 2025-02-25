@@ -7,13 +7,13 @@ const Navbar: React.FC = () => {
 
   return (
     <motion.nav
-      className="bg-teal-900 text-white shadow-md flex flex-col md:flex-row justify-around p-4 relative"
+      className="bg-teal-900 text-white shadow-md flex flex-col md:flex-row justify-around p-2 relative z-50"
       style={{ backgroundColor: "#04424D" }}
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8, ease: "easeOut" }}
     >
-      <div className="container mx-auto flex justify-between items-center p-4 m-2">
+      <div className="container mx-auto flex justify-between items-center p-2">
         {/* Logo with Hover Effect */}
         <Link to="/" className="flex items-center space-x-2">
           <motion.img
@@ -27,13 +27,13 @@ const Navbar: React.FC = () => {
           />
         </Link>
 
-        {/* Desktop Links with Hover Animation */}
+        {/* Desktop Links */}
         <div className="hidden md:flex space-x-6">
           <NavItem to="/">Home</NavItem>
           <NavItem to="/admin">Admin</NavItem>
         </div>
 
-        {/* Mobile Menu Button with Smooth Animation */}
+        {/* Mobile Menu Button */}
         <motion.button
           className="md:hidden focus:outline-none rounded-full p-2 bg-teal-700 shadow-lg"
           onClick={() => setIsOpen(!isOpen)}
@@ -49,23 +49,48 @@ const Navbar: React.FC = () => {
         </motion.button>
       </div>
 
-      {/* Mobile Menu with Smoother Slide Effect */}
+      {/* Mobile Menu with Animation & Transparent Background */}
       <motion.div
-        className={`md:hidden flex flex-col items-center space-y-4 p-4 bg-teal-800 transition-all duration-500 absolute top-full left-0 w-full ${
-          isOpen ? "block" : "hidden"
+        className={`md:hidden flex flex-col items-center space-y-4 p-4 absolute top-full left-0 w-full backdrop-blur-md transition-all duration-500 ${
+          isOpen ? "bg-white/10 shadow-lg" : "bg-transparent"
         }`}
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: isOpen ? 1 : 0, y: isOpen ? 0 : -20 }}
         transition={{ duration: 0.5, ease: "easeOut" }}
       >
-        <NavItem to="/">Home</NavItem>
-        <NavItem to="/admin">Admin</NavItem>
+        <AnimatedNavItem to="/">Home</AnimatedNavItem>
+        <AnimatedNavItem to="/admin">Admin</AnimatedNavItem>
       </motion.div>
     </motion.nav>
   );
 };
 
-// Reusable Nav Link Component with Underline Animation and Smooth Transition
+// Animated NavItem for Mobile View
+const AnimatedNavItem: React.FC<{ to: string; children: React.ReactNode }> = ({
+  to,
+  children,
+}) => (
+  <motion.div
+    initial={{ opacity: 0, x: -20 }}
+    animate={{ opacity: 1, x: 0 }}
+    transition={{ duration: 0.5, ease: "easeOut" }}
+    whileHover={{ scale: 1.1, color: "#38B2AC" }}
+    whileTap={{ scale: 0.95 }}
+    className="relative"
+  >
+    <Link to={to} className="text-lg hover:text-teal-300 transition relative">
+      {children}
+      <motion.div
+        className="absolute left-0 bottom-0 w-full h-0.5 bg-teal-300"
+        initial={{ scaleX: 0 }}
+        whileHover={{ scaleX: 1 }}
+        transition={{ duration: 0.3, ease: "easeOut" }}
+      />
+    </Link>
+  </motion.div>
+);
+
+// Desktop NavItem
 const NavItem: React.FC<{ to: string; children: React.ReactNode }> = ({
   to,
   children,
