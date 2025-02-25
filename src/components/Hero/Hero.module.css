@@ -18,13 +18,13 @@
   color: #EAEAEA;
   font-family: 'Merriweather', serif;
 }
-
+/* 
 .heroTextGradient {
-  background: linear-gradient(to right, #38b2ac, #68d391);
+  background: linear-gradient(to right, #054e5a, #0e7c86);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-}
+} */
 
 .subheading {
   transition: transform 0.2s ease-in-out;

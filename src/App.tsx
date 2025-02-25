@@ -1,17 +1,32 @@
 import React, { useEffect, useState } from "react";
-import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import {
+  Route,
+  BrowserRouter as Router,
+  Routes,
+  useLocation,
+  useNavigate,
+} from "react-router-dom";
 import Loader from "./loader/loader";
 import Navbar from "./navbar/navbar";
-import Admin from "./pages/Admin";
 import Home from "./pages/Home";
 
-const App: React.FC = () => {
+const AppContent: React.FC = () => {
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 2000); // Adjust the duration as needed
+    const timer = setTimeout(() => setLoading(false), 2000);
     return () => clearTimeout(timer);
   }, []);
+
+  // Lock navigation to "/" to prevent unintended route changes
+  useEffect(() => {
+    if (location.pathname !== "/" && !loading) {
+      // console.log("Redirecting to / from:", location.pathname);
+      navigate("/", { replace: true }); // Keep on Home route
+    }
+  }, [location, navigate, loading]);
 
   if (loading) {
     return <Loader />;
@@ -19,15 +34,19 @@ const App: React.FC = () => {
 
   return (
     <div style={{ backgroundColor: "#e0e0e0", minHeight: "100vh" }}>
-      <Router>
-        <Navbar />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/admin" element={<Admin />} />
-        </Routes>
-      </Router>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        {/* <Route path="/admin" element={<Admin />} /> */}
+      </Routes>
     </div>
   );
 };
+
+const App: React.FC = () => (
+  <Router>
+    <AppContent />
+  </Router>
+);
 
 export default App;

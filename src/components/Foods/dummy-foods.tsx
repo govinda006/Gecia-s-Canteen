@@ -13,7 +13,8 @@ interface FoodData {
 }
 
 export const dummyFoods: FoodData = {
-  "2025-02-10": {
+  "2025-02-25": {
+    // Today
     Breakfast: [
       {
         name: "Dal Wada",
@@ -35,14 +36,15 @@ export const dummyFoods: FoodData = {
         description: "Tea - 100 ml",
         kcal: "N/A",
       },
-      {
-        name: "Additional",
-        description: "481 kcal, 28 kcal, 150 calories",
-        kcal: "N/A",
-      },
+      // {
+      //   name: "Additional",
+      //   description: "481 kcal, 28 kcal, 150 calories",
+      //   kcal: "N/A",
+      // },
     ],
   },
-  "2025-02-11": {
+  "2025-02-26": {
+    // Tomorrow
     Breakfast: [
       {
         name: "Onion Poha",
@@ -72,7 +74,8 @@ export const dummyFoods: FoodData = {
       },
     ],
   },
-  "2025-02-12": {
+  "2025-02-27": {
+    // Day after tomorrow
     Breakfast: [
       {
         name: "Misal Pav",
@@ -97,7 +100,8 @@ export const dummyFoods: FoodData = {
       },
     ],
   },
-  "2025-02-13": {
+  "2025-02-28": {
+    // February 28, 2025
     Breakfast: [
       {
         name: "Butter Onion Uttapa",
@@ -122,7 +126,8 @@ export const dummyFoods: FoodData = {
       },
     ],
   },
-  "2025-02-14": {
+  "2025-03-01": {
+    // March 1, 2025 (since February has 28 days in 2025)
     Breakfast: [
       {
         name: "Podi Idli",

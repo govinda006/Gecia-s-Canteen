@@ -8,6 +8,11 @@ const Home: React.FC = () => {
     "hero" | "items" | "breakfast"
   >("hero");
 
+  const handleBackFromBreakfast = () => {
+    console.log("Switching to Items (menu) from Breakfast"); // Debug log
+    setCurrentView("items"); // Explicitly set to "items" (menu)
+  };
+
   return (
     <div className="bg-gray-100 w-full min-h-screen flex justify-center items-center">
       {currentView === "hero" && (
@@ -20,7 +25,7 @@ const Home: React.FC = () => {
         />
       )}
       {currentView === "breakfast" && (
-        <Breakfast onBack={() => setCurrentView("items")} />
+        <Breakfast onBack={handleBackFromBreakfast} />
       )}
     </div>
   );

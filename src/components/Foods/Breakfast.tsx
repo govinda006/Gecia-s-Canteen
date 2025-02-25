@@ -1,19 +1,20 @@
 import { motion } from "framer-motion";
 import React, { memo } from "react";
-import FoodCard from "../../cards/FoodCard";
-import { getFoodsByDate } from "./dummy-foods";
+import FoodCard from "../../cards/FoodCard"; // Adjusted path from second version
+import { getFoodsByDate } from "./dummy-foods"; // Adjusted path from second version
 
 interface BreakfastProps {
   onBack: () => void;
 }
 
+// Animation Variants
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: { opacity: 1, transition: { duration: 1.5, ease: "easeOut" } },
 };
 
 const buttonVariants = {
-  hover: { scale: 1.1, backgroundColor: "red" },
+  hover: { scale: 1.1, backgroundColor: "red" }, // From second version
   tap: { scale: 0.9 },
 };
 
@@ -33,18 +34,23 @@ const headingVariants = {
 };
 
 const cardVariants = {
-  hidden: { opacity: 0, scale: 0.5 },
+  hidden: { opacity: 0, scale: 0.5 }, // Updated from first version's 0.8
   visible: (index: number) => ({
     opacity: 1,
     scale: 1,
     transition: { duration: 0.5, ease: "easeOut", delay: index * 0.2 },
   }),
-  hover: { scale: 1.05, boxShadow: "0px 5px 15px rgba(0, 0, 0, 0.2)" },
+  hover: { scale: 1.05, boxShadow: "0px 5px 15px rgba(0, 0, 0, 0.2)" }, // Updated from first version
 };
 
 const Breakfast: React.FC<BreakfastProps> = ({ onBack }) => {
   const currentDate = new Date().toISOString().split("T")[0];
   const breakfastItems = getFoodsByDate(currentDate).Breakfast || [];
+
+  const handleBackClick = () => {
+    console.log("Back clicked, should render Items (menu)"); // Debug log from first version
+    onBack(); // Trigger switch to Items (menu)
+  };
 
   return (
     <motion.div
@@ -55,7 +61,9 @@ const Breakfast: React.FC<BreakfastProps> = ({ onBack }) => {
     >
       {/* Animated Back Button */}
       <motion.button
-        onClick={onBack}
+        onClick={handleBackClick} // Wrapped for debugging and control
+        onTouchStart={(e) => e.preventDefault()} // Prevent mobile touch issues (from first version)
+        onTouchEnd={handleBackClick} // Ensure tap works on mobile (from first version)
         className="p-2 mb-4 bg-blue-500 text-white rounded shadow-lg"
         variants={buttonVariants}
         whileHover="hover"
