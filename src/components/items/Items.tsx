@@ -17,12 +17,15 @@ interface ItemsProps {
   onBack: () => void;
   onSelectBreakfast: () => void;
   onSelectDietFoods: () => void;
+  onSelectLunch: () => void;
 }
 
 const Items: React.FC<ItemsProps> = ({
   onBack,
   onSelectBreakfast,
   onSelectDietFoods,
+  onSelectLunch,
+
 }) => {
   const { theme, type } = getCurrentDayTheme();
   // const currentDate = new Date().toLocaleDateString();
@@ -52,6 +55,8 @@ const Items: React.FC<ItemsProps> = ({
                 ? onSelectBreakfast
                 : foodItem.name === "🥗 Diet Food"
                 ? onSelectDietFoods
+                : foodItem.name === "🍛 Lunch"
+                ? onSelectLunch
                 : undefined
             }
           />

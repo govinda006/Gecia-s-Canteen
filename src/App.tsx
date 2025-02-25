@@ -25,7 +25,7 @@ const AppContent: React.FC = () => {
 
   // Allow navigation within defined routes but redirect unknown paths to "/"
   useEffect(() => {
-    const validPaths = ["/", "/breakfast", "/diet-foods"];
+    const validPaths = ["/", "/breakfast", "/diet-foods", "/lunch"];
     if (!validPaths.includes(location.pathname) && !loading) {
       console.log("Redirecting to / from:", location.pathname);
       navigate("/", { replace: true });
@@ -35,6 +35,7 @@ const AppContent: React.FC = () => {
   const handleBack = () => navigate("/"); // Navigate back to Items (Home)
   const handleSelectBreakfast = () => navigate("/breakfast");
   const handleSelectDietFoods = () => navigate("/diet-foods");
+  const handleSelectLunch = () => navigate("/lunch");
 
   if (loading) {
     return <Loader />;
@@ -51,11 +52,13 @@ const AppContent: React.FC = () => {
               onBack={handleBack} // Could be used to hide menu or go elsewhere
               onSelectBreakfast={handleSelectBreakfast}
               onSelectDietFoods={handleSelectDietFoods}
+              onSelectLunch={handleSelectLunch}
             />
           }
         />
         <Route path="/breakfast" element={<Breakfast onBack={handleBack} />} />
         <Route path="/diet-foods" element={<DietFoods onBack={handleBack} />} />
+        <Route path="/lunch" element={<Lunch onBack={handleBack} />} />
         {/* Uncomment and add other routes as needed */}
         {/* <Route path="/admin" element={<Admin />} /> */}
       </Routes>

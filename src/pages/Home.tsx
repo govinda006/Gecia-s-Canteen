@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import Breakfast from "../components/Foods/Breakfast";
 import DietFoods from "../components/Foods/DietFoods";
+import Lunch from "../components/Foods/Lunch";
 import Hero from "../components/Hero/Hero";
 import Items from "../components/items/Items";
 
 const Home: React.FC = () => {
   const [currentView, setCurrentView] = useState<
-    "hero" | "items" | "breakfast" | "dietFoods"
+    "hero" | "items" | "breakfast" | "dietFoods" | "lunch"
   >("hero");
 
   const handleBackFromBreakfast = () => {
@@ -15,6 +16,10 @@ const Home: React.FC = () => {
   };
   const handleBackFromDietFoods = () => {
     console.log("Switching to Items (menu) from Diet Foods");
+    setCurrentView("items");
+  };
+  const handleBackFromLunch = () => {
+    console.log("Switching to Items (menu) from Lunch Foods");
     setCurrentView("items");
   };
 
@@ -28,6 +33,7 @@ const Home: React.FC = () => {
           onBack={() => setCurrentView("hero")}
           onSelectBreakfast={() => setCurrentView("breakfast")}
           onSelectDietFoods={() => setCurrentView("dietFoods")}
+          onSelectLunch={() => setCurrentView("lunch")}
         />
       )}
       {currentView === "breakfast" && (
@@ -35,6 +41,9 @@ const Home: React.FC = () => {
       )}
       {currentView === "dietFoods" && (
         <DietFoods onBack={handleBackFromDietFoods} /> // Added DietFoods render
+      )}
+      {currentView === "lunch" && (
+        <Lunch onBack={handleBackFromLunch} /> // Added DietFoods render
       )}
     </div>
   );
