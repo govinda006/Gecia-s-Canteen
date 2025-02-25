@@ -1,14 +1,14 @@
 .heroSection {
-  background-color: #022b33;
+  background-color: #054e5a;
 }
 
-.backgroundImage {
+/* .backgroundImage {
   background-image: url('https://www.transparenttextures.com/patterns/food.png');
-}
+} */
 
-.backgroundGlow {
+/* .backgroundGlow {
   background: radial-gradient(circle, rgba(0,128,128,0.2) 0%, transparent 100%);
-}
+} */
 
 .floatingElement {
   transition: transform 0.2s ease-in-out;

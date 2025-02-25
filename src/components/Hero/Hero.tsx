@@ -2,17 +2,17 @@ import { motion } from "framer-motion";
 import React from "react";
 import styles from './Hero.module.css'; // Import CSS module
 
-const foodVariants = {
-  initial: { y: 0 },
-  animate: {
-    y: [0, -15, 0], // Floating effect
-    transition: {
-      duration: 2.5,
-      repeat: Infinity,
-      ease: "easeInOut",
-    },
-  },
-};
+// const foodVariants = {
+//   initial: { y: 0 },
+//   animate: {
+//     y: [0, -15, 0], // Floating effect
+//     transition: {
+//       duration: 2.5,
+//       repeat: Infinity,
+//       ease: "easeInOut",
+//     },
+//   },
+// };
 
 interface HeroProps {
   onShowMenu: () => void; // Function to handle showing the menu
@@ -38,7 +38,7 @@ const Hero: React.FC<HeroProps> = ({ onShowMenu }) => {
       <div className={`absolute top-0 left-0 w-full h-full ${styles.backgroundGlow}`}></div>
 
       {/* Floating Food Elements */}
-      <motion.img
+      {/* <motion.img
         src="https://img.icons8.com/color/96/pizza.png"
         alt="Floating Pizza"
         className={`absolute top-16 left-10 w-14 md:w-20 ${styles.floatingElement}`}
@@ -82,7 +82,7 @@ const Hero: React.FC<HeroProps> = ({ onShowMenu }) => {
         initial="initial"
         animate="animate"
         whileHover={{ rotate: 180, scale: 1.1 }}
-      />
+      /> */}
 
       {/* Hero Text */}
       <motion.h1

@@ -8,7 +8,7 @@ const Navbar: React.FC = () => {
   return (
     <motion.nav
       className="bg-teal-900 text-white shadow-md flex flex-col md:flex-row justify-around p-2 relative z-50"
-      style={{ backgroundColor: "#04424D" }}
+      style={{ backgroundColor: "#054e5a" }}
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8, ease: "easeOut" }}
