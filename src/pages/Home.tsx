@@ -11,8 +11,8 @@ const Home: React.FC = () => {
   >("hero");
 
   const handleBackFromBreakfast = () => {
-    console.log("Switching to Items (menu) from Breakfast"); // Debug log
-    setCurrentView("items"); // Explicitly set to "items" (menu)
+    console.log("Switching to Items (menu) from Breakfast");
+    setCurrentView("items");
   };
   const handleBackFromDietFoods = () => {
     console.log("Switching to Items (menu) from Diet Foods");
@@ -40,11 +40,9 @@ const Home: React.FC = () => {
         <Breakfast onBack={handleBackFromBreakfast} />
       )}
       {currentView === "dietFoods" && (
-        <DietFoods onBack={handleBackFromDietFoods} /> // Added DietFoods render
+        <DietFoods onBack={handleBackFromDietFoods} />
       )}
-      {currentView === "lunch" && (
-        <Lunch onBack={handleBackFromLunch} /> // Added DietFoods render
-      )}
+      {currentView === "lunch" && <Lunch onBack={handleBackFromLunch} />}
     </div>
   );
 };
