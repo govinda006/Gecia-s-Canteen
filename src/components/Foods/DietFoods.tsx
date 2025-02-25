@@ -1,9 +1,9 @@
 import { motion } from "framer-motion";
 import React, { memo } from "react";
-import FoodCard from "../../cards/FoodCard"; // Adjusted path from second version
-import { getFoodsByDate } from "./dummy-foods"; // Adjusted path from second version
+import FoodCard from "../../cards/FoodCard";
+import { getFoodsByDate } from "./dummy-foods";
 
-interface BreakfastProps {
+interface DietFoodsProps {
   onBack: () => void;
 }
 
@@ -14,7 +14,7 @@ const containerVariants = {
 };
 
 const buttonVariants = {
-  hover: { scale: 1.1, backgroundColor: "red" }, // From second version
+  hover: { scale: 1.1, backgroundColor: "red" },
   tap: { scale: 0.9 },
 };
 
@@ -34,27 +34,27 @@ const headingVariants = {
 };
 
 const cardVariants = {
-  hidden: { opacity: 0, scale: 0.5 }, // Updated from first version's 0.8
+  hidden: { opacity: 0, scale: 0.5 },
   visible: (index: number) => ({
     opacity: 1,
     scale: 1,
     transition: { duration: 0.5, ease: "easeOut", delay: index * 0.2 },
   }),
-  hover: { scale: 1.05, boxShadow: "0px 5px 15px rgba(0, 0, 0, 0.2)" }, // Updated from first version
+  hover: { scale: 1.05, boxShadow: "0px 5px 15px rgba(0, 0, 0, 0.2)" },
 };
 
-const Breakfast: React.FC<BreakfastProps> = ({ onBack }) => {
+const DietFoods: React.FC<DietFoodsProps> = ({ onBack }) => {
   const currentDate = new Date().toISOString().split("T")[0];
-  const breakfastItems = getFoodsByDate(currentDate).Breakfast || [];
+  const dietFoodItems = getFoodsByDate(currentDate).DietFoods || [];
 
   const handleBackClick = () => {
-    console.log("Back clicked, should render Items (menu)"); // Debug log from first version
-    onBack(); // Trigger switch to Items (menu)
+    console.log("Back clicked, should render Items (menu)");
+    onBack();
   };
 
   return (
     <motion.div
-      className="breakfast-section p-2 w-full min-h-screen flex flex-col items-center"
+      className="diet-foods-section p-2 w-full min-h-screen flex flex-col items-center"
       style={{ backgroundColor: "#054e5a" }}
       variants={containerVariants}
       initial="hidden"
@@ -62,9 +62,9 @@ const Breakfast: React.FC<BreakfastProps> = ({ onBack }) => {
     >
       {/* Animated Back Button */}
       <motion.button
-        onClick={handleBackClick} // Wrapped for debugging and control
-        onTouchStart={(e) => e.preventDefault()} // Prevent mobile touch issues (from first version)
-        onTouchEnd={handleBackClick} // Ensure tap works on mobile (from first version)
+        onClick={handleBackClick}
+        onTouchStart={(e) => e.preventDefault()}
+        onTouchEnd={handleBackClick}
         className="p-2 mb-4 bg-blue-500 text-white rounded shadow-lg"
         variants={buttonVariants}
         whileHover="hover"
@@ -81,12 +81,12 @@ const Breakfast: React.FC<BreakfastProps> = ({ onBack }) => {
         animate="visible"
         whileHover="hover"
       >
-        Breakfast Menu
+        Diet Foods Menu
       </motion.h2>
 
       {/* Food Items Grid */}
       <motion.div
-        className="breakfast-items grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 justify-center"
+        className="diet-foods-items grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 justify-center"
         initial="hidden"
         animate="visible"
         variants={{
@@ -94,10 +94,10 @@ const Breakfast: React.FC<BreakfastProps> = ({ onBack }) => {
           visible: { opacity: 1, transition: { staggerChildren: 0.2 } },
         }}
       >
-        {breakfastItems.map((item, index) => (
+        {dietFoodItems.map((item, index) => (
           <motion.div
             key={index}
-            className="breakfast-item w-fit flex justify-center items-center"
+            className="diet-foods-item w-fit flex justify-center items-center"
             custom={index}
             variants={cardVariants}
             initial="hidden"
@@ -116,4 +116,4 @@ const Breakfast: React.FC<BreakfastProps> = ({ onBack }) => {
   );
 };
 
-export default memo(Breakfast);
+export default memo(DietFoods);

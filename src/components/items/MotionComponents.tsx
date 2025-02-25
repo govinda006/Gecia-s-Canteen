@@ -119,9 +119,7 @@ const App: React.FC = () => {
       <BackgroundAnimation />
       <MenuTitle />
       <MenuDescription />
-      {/* <CurrentDate date={new Date().toLocaleDateString()} /> */}
       <ThemeTitle theme={theme} type={type} color="#FF6347" />
-      {/* Render other components as needed */}
     </div>
   );
 };

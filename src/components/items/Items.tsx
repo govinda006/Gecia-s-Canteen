@@ -4,21 +4,26 @@ import { themeColors } from "../../data/themeColors";
 import { foodItems, getCurrentDayTheme } from "./items-constants";
 import "./Items.css";
 import {
-    BackgroundAnimation,
-    // CurrentDate,
-    FoodItemComponent,
-    HideMenuButton,
-    MenuDescription,
-    MenuTitle,
-    ThemeTitle,
+  BackgroundAnimation,
+  // CurrentDate,
+  FoodItemComponent,
+  HideMenuButton,
+  MenuDescription,
+  MenuTitle,
+  ThemeTitle,
 } from "./MotionComponents";
 
 interface ItemsProps {
   onBack: () => void;
   onSelectBreakfast: () => void;
+  onSelectDietFoods: () => void;
 }
 
-const Items: React.FC<ItemsProps> = ({ onBack, onSelectBreakfast }) => {
+const Items: React.FC<ItemsProps> = ({
+  onBack,
+  onSelectBreakfast,
+  onSelectDietFoods,
+}) => {
   const { theme, type } = getCurrentDayTheme();
   // const currentDate = new Date().toLocaleDateString();
   const themeColor = themeColors[theme] || "#ffffff";
@@ -43,7 +48,11 @@ const Items: React.FC<ItemsProps> = ({ onBack, onSelectBreakfast }) => {
             foodItem={foodItem}
             index={index}
             onClick={
-              foodItem.name === "🥞 Breakfast" ? onSelectBreakfast : undefined
+              foodItem.name === "🥞 Breakfast"
+                ? onSelectBreakfast
+                : foodItem.name === "🥗 Diet Food"
+                ? onSelectDietFoods
+                : undefined
             }
           />
         ))}
