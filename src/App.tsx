@@ -8,7 +8,7 @@ import {
 } from "react-router-dom";
 import Loader from "./loader/loader";
 import Navbar from "./navbar/navbar";
-import Home from "./pages/Home"; // Import Home component
+import Home from "./pages/Home";
 
 const AppContent: React.FC = () => {
   const [loading, setLoading] = useState(true);
