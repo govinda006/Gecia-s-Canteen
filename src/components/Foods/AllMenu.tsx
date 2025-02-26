@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import React, { useState } from "react";
-import { getFoodsByDate } from "./dummy-foods";
+import { dummyFoods, getFoodsByDate } from "./dummy-foods";
 
 interface FoodItem {
   name: string;
@@ -28,34 +28,45 @@ const buttonVariants = {
   tap: { scale: 0.9 },
 };
 
-const dropdownVariants = {
+const listVariants = {
   closed: { opacity: 0, height: 0 },
   open: { opacity: 1, height: "auto", transition: { duration: 0.3 } },
 };
 
 const AllMenu: React.FC<AllMenuProps> = ({ onBack }) => {
   const currentDate = new Date().toISOString().split("T")[0];
-  const foodData: DailyMenu = getFoodsByDate(currentDate) as DailyMenu; // Type assertion
-  const categories = ["Breakfast", "DietFoods", "Lunch"] as const;
-  const [selectedCategory, setSelectedCategory] = useState<
-    (typeof categories)[number] | null
-  >(null);
+  const availableDates = Object.keys(dummyFoods);
+  const initialDate = availableDates.includes(currentDate)
+    ? currentDate
+    : availableDates[0] || "";
+  const [selectedDate, setSelectedDate] = useState<string>(initialDate);
+
+  const foodData: DailyMenu = (getFoodsByDate(selectedDate) as DailyMenu) || {
+    Breakfast: [],
+    DietFoods: [],
+    Lunch: [],
+  };
 
   const handleBackClick = () => {
     console.log("Back clicked, returning to Items");
     onBack();
   };
 
+  const handleDateChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedDate(e.target.value);
+  };
+
   return (
     <motion.div
-      className="all-menu-section p-2 w-full min-h-screen flex flex-col items-center bg-white"
+      className="all-menu-section p-4 w-full min-h-screen flex flex-col items-center bg-white"
       variants={containerVariants}
       initial="hidden"
       animate="visible"
     >
       <motion.button
         onClick={handleBackClick}
-        className="p-2 mb-4 bg-blue-500 text-white rounded shadow-lg"
+        className="p-2 mb-6 bg-blue-500 text-white rounded shadow-lg cursor-pointer"
+        style={{ position: "relative", zIndex: 20 }}
         variants={buttonVariants}
         whileHover="hover"
         whileTap="tap"
@@ -72,43 +83,45 @@ const AllMenu: React.FC<AllMenuProps> = ({ onBack }) => {
         All Menu
       </motion.h2>
 
-      <div className="w-full max-w-md">
+      <div className="w-full max-w-4xl">
         <select
-          className="w-full p-2 mb-4 border rounded text-gray-700"
-          value={selectedCategory || ""}
-          onChange={(e) =>
-            setSelectedCategory(
-              e.target.value as (typeof categories)[number] | null
-            )
-          }
+          className="w-full p-2 mb-6 border rounded text-gray-700"
+          value={selectedDate}
+          onChange={handleDateChange}
         >
-          <option value="">Select Category</option>
-          {categories.map((category) => (
-            <option key={category} value={category}>
-              {category}
+          {availableDates.map((date) => (
+            <option key={date} value={date}>
+              {date}
             </option>
           ))}
         </select>
 
-        {selectedCategory && (
-          <motion.ul
-            className="list-disc pl-5 text-gray-800"
-            variants={dropdownVariants}
-            initial="closed"
-            animate="open"
-          >
-            {foodData[selectedCategory]?.length > 0 ? (
-              foodData[selectedCategory].map((item, index) => (
-                <li key={index} className="mb-2">
-                  <strong>{item.name}</strong> - {item.description} ({item.kcal}{" "}
-                  kcal)
-                </li>
-              ))
-            ) : (
-              <li>No items available</li>
-            )}
-          </motion.ul>
-        )}
+        <motion.div
+          className="grid grid-cols-1 md:grid-cols-3 gap-6 text-gray-800"
+          variants={listVariants}
+          initial="closed"
+          animate="open"
+        >
+          {["Breakfast", "DietFoods", "Lunch"].map((category) => (
+            <div key={category} className="flex flex-col">
+              <h3 className="text-xl font-semibold text-blue-600 mb-2">
+                {category}
+              </h3>
+              {foodData[category as keyof DailyMenu]?.length > 0 ? (
+                <ul className="list-disc pl-5">
+                  {foodData[category as keyof DailyMenu].map((item, index) => (
+                    <li key={index} className="mb-2">
+                      <strong>{item.name}</strong> - {item.description} (
+                      {item.kcal} kcal)
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <p className="text-gray-500">No items available</p>
+              )}
+            </div>
+          ))}
+        </motion.div>
       </div>
     </motion.div>
   );
