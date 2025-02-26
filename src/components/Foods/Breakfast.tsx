@@ -55,7 +55,7 @@ const Breakfast: React.FC<BreakfastProps> = ({ onBack }) => {
   return (
     <motion.div
       className="breakfast-section p-2 w-full min-h-screen flex flex-col items-center"
-      style={{ backgroundColor: "#054e5a" }}
+      style={{ backgroundColor: "white"}}
       variants={containerVariants}
       initial="hidden"
       animate="visible"
@@ -65,7 +65,8 @@ const Breakfast: React.FC<BreakfastProps> = ({ onBack }) => {
         onClick={handleBackClick} // Wrapped for debugging and control
         onTouchStart={(e) => e.preventDefault()} // Prevent mobile touch issues (from first version)
         onTouchEnd={handleBackClick} // Ensure tap works on mobile (from first version)
-        className="p-2 mb-4 bg-blue-500 text-white rounded shadow-lg"
+        className="p-2 mb-4 bg-500 text-white rounded shadow-lg"
+        style={{ backgroundColor: "#054e5a" }}
         variants={buttonVariants}
         whileHover="hover"
         whileTap="tap"

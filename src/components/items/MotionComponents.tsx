@@ -1,9 +1,9 @@
 import { motion } from "framer-motion";
 import React from "react";
 import {
-    backgroundVariants,
-    getCurrentDayTheme,
-    textVariants,
+  backgroundVariants,
+  getCurrentDayTheme,
+  textVariants,
 } from "./items-constants";
 
 // Define types for foodItems and weeklyThemes
