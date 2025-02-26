@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import FoodCard from "../../cards/FoodCard";
 import { getFoodsByDate } from "../Foods/dummy-foods";
 
@@ -11,11 +11,33 @@ const Breakfast: React.FC<BreakfastProps> = ({ onBack }) => {
   const currentDate = new Date().toISOString().split("T")[0];
   const breakfastItems = getFoodsByDate(currentDate).Breakfast || [];
 
+  const [currentTime, setCurrentTime] = useState(new Date());
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentTime(new Date());
+    }, 1000); // Update every second
+    return () => clearInterval(timer); // Cleanup on unmount
+  }, []);
+
   const handleBackClick = (e: React.MouseEvent | React.TouchEvent) => {
     e.preventDefault();
     console.log("Back clicked, switching to Items");
     onBack();
   };
+
+  // Format date and time for display
+  const formattedDate = currentTime.toLocaleDateString("en-US", {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+  const formattedTime = currentTime.toLocaleTimeString("en-US", {
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+  });
 
   return (
     <motion.div
@@ -36,7 +58,16 @@ const Breakfast: React.FC<BreakfastProps> = ({ onBack }) => {
         Back
       </motion.button>
 
-      <h2 className="text-3xl font-bold mb-6 text-blue-700">Breakfast Menu</h2>
+      <h2 className="text-3xl font-bold mb-2 text-blue-700">Breakfast Menu</h2>
+      <motion.p
+        className="text-lg text-gray-700 mb-6"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.2 }}
+      >
+        {formattedDate} | {formattedTime}
+      </motion.p>
+
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full max-w-6xl">
         {breakfastItems.map((item) => (
           <motion.div

@@ -1,11 +1,7 @@
 import { motion } from "framer-motion";
-import React, { memo } from "react";
+import React, { memo, useEffect, useState } from "react";
 import FoodCard from "../../cards/FoodCard";
 import { getFoodsByDate } from "./dummy-foods";
-
-interface DietFoodsProps {
-  onBack: () => void;
-}
 
 // Animation Variants
 const containerVariants = {
@@ -43,14 +39,40 @@ const cardVariants = {
   hover: { scale: 1.05, boxShadow: "0px 5px 15px rgba(0, 0, 0, 0.2)" },
 };
 
+interface DietFoodsProps {
+  onBack: () => void;
+}
+
 const DietFoods: React.FC<DietFoodsProps> = ({ onBack }) => {
   const currentDate = new Date().toISOString().split("T")[0];
   const dietFoodItems = getFoodsByDate(currentDate).DietFoods || [];
+  const [currentTime, setCurrentTime] = useState(new Date());
 
-  const handleBackClick = () => {
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentTime(new Date());
+    }, 1000); // Update every second
+    return () => clearInterval(timer); // Cleanup on unmount
+  }, []);
+
+  const handleBackClick = (e: React.MouseEvent | React.TouchEvent) => {
+    e.preventDefault();
     console.log("Back clicked, should render Items (menu)");
     onBack();
   };
+
+  // Format date and time for display
+  const formattedDate = currentTime.toLocaleDateString("en-US", {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+  const formattedTime = currentTime.toLocaleTimeString("en-US", {
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+  });
 
   return (
     <motion.div
@@ -60,13 +82,12 @@ const DietFoods: React.FC<DietFoodsProps> = ({ onBack }) => {
       initial="hidden"
       animate="visible"
     >
-      {/* Animated Back Button */}
       <motion.button
         onClick={handleBackClick}
         onTouchStart={(e) => e.preventDefault()}
         onTouchEnd={handleBackClick}
-        className="p-2 mb-4 bg-500 text-white rounded shadow-lg"
-        style={{ backgroundColor: "#054e5a" }}
+        className="p-2 mb-4 bg-blue-500 text-white rounded shadow-lg cursor-pointer"
+        style={{ position: "relative", zIndex: 20 }}
         variants={buttonVariants}
         whileHover="hover"
         whileTap="tap"
@@ -74,9 +95,8 @@ const DietFoods: React.FC<DietFoodsProps> = ({ onBack }) => {
         Back
       </motion.button>
 
-      {/* Animated Heading */}
       <motion.h2
-        className="text-3xl font-bold mb-6 text-blue-700 flex justify-center"
+        className="text-3xl font-bold mb-2 text-blue-700 flex justify-center"
         variants={headingVariants}
         initial="hidden"
         animate="visible"
@@ -85,9 +105,17 @@ const DietFoods: React.FC<DietFoodsProps> = ({ onBack }) => {
         Diet Foods Menu
       </motion.h2>
 
-      {/* Food Items Grid */}
+      <motion.p
+        className="text-lg text-gray-700 mb-6"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.2 }}
+      >
+        {formattedDate} | {formattedTime}
+      </motion.p>
+
       <motion.div
-        className="diet-foods-items grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 justify-center"
+        className="diet-foods-items grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 justify-center w-full max-w-6xl"
         initial="hidden"
         animate="visible"
         variants={{
@@ -97,7 +125,7 @@ const DietFoods: React.FC<DietFoodsProps> = ({ onBack }) => {
       >
         {dietFoodItems.map((item, index) => (
           <motion.div
-            key={index}
+            key={item.name} // Changed to use item.name for uniqueness
             className="diet-foods-item w-fit flex justify-center items-center"
             custom={index}
             variants={cardVariants}
