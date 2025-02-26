@@ -1,4 +1,5 @@
 import React from "react";
+import { type View } from "../App"; // Use type import syntax
 import AllMenu from "../components/Foods/AllMenu";
 import Breakfast from "../components/Foods/Breakfast";
 import DietFoods from "../components/Foods/DietFoods";
@@ -7,60 +8,47 @@ import Hero from "../components/Hero/Hero";
 import Items from "../components/items/Items";
 
 interface HomeProps {
-  currentView:
-    | "hero"
-    | "items"
-    | "breakfast"
-    | "dietFoods"
-    | "lunch"
-    | "allMenu";
-  setCurrentView: React.Dispatch<
-    React.SetStateAction<
-      "hero" | "items" | "breakfast" | "dietFoods" | "lunch" | "allMenu"
-    >
-  >;
+  currentView: View;
+  setCurrentView: React.Dispatch<React.SetStateAction<View>>;
 }
 
 const Home: React.FC<HomeProps> = ({ currentView, setCurrentView }) => {
-  const handleBackFromBreakfast = () => {
-    console.log("Switching to Items (menu) from Breakfast");
-    setCurrentView("items");
+  const navigateTo = (view: View) => {
+    console.log(`Switching to ${view}`);
+    setCurrentView(view);
   };
-  const handleBackFromDietFoods = () => {
-    console.log("Switching to Items (menu) from Diet Foods");
-    setCurrentView("items");
-  };
-  const handleBackFromLunch = () => {
-    console.log("Switching to Items (menu) from Lunch Foods");
-    setCurrentView("items");
-  };
-  const handleBackFromAllMenu = () => {
-    console.log("Switching to Items (menu) from All Menu");
+
+  const handleBackFromSubView = (from: string) => {
+    console.log(`Switching to Items from ${from}`);
     setCurrentView("items");
   };
 
   return (
     <div className="bg-gray-100 w-full min-h-screen flex justify-center items-center">
       {currentView === "hero" && (
-        <Hero onShowMenu={() => setCurrentView("items")} />
+        <Hero onShowMenu={() => navigateTo("items")} />
       )}
       {currentView === "items" && (
         <Items
-          onBack={() => setCurrentView("hero")}
-          onSelectBreakfast={() => setCurrentView("breakfast")}
-          onSelectDietFoods={() => setCurrentView("dietFoods")}
-          onSelectLunch={() => setCurrentView("lunch")}
-          onSelectAllMenu={() => setCurrentView("allMenu")} // New prop
+          onBack={() => navigateTo("hero")}
+          onSelectBreakfast={() => navigateTo("breakfast")}
+          onSelectDietFoods={() => navigateTo("dietFoods")}
+          onSelectLunch={() => navigateTo("lunch")}
+          onSelectAllMenu={() => navigateTo("allMenu")}
         />
       )}
       {currentView === "breakfast" && (
-        <Breakfast onBack={handleBackFromBreakfast} />
+        <Breakfast onBack={() => handleBackFromSubView("Breakfast")} />
       )}
       {currentView === "dietFoods" && (
-        <DietFoods onBack={handleBackFromDietFoods} />
+        <DietFoods onBack={() => handleBackFromSubView("Diet Foods")} />
       )}
-      {currentView === "lunch" && <Lunch onBack={handleBackFromLunch} />}
-      {currentView === "allMenu" && <AllMenu onBack={handleBackFromAllMenu} />}
+      {currentView === "lunch" && (
+        <Lunch onBack={() => handleBackFromSubView("Lunch")} />
+      )}
+      {currentView === "allMenu" && (
+        <AllMenu onBack={() => handleBackFromSubView("All Menu")} />
+      )}
     </div>
   );
 };

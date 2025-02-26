@@ -18,10 +18,10 @@ const mobileMenuVariants = {
 };
 
 interface NavLinkProps {
-  to?: string; // Optional for Home link
+  to?: string;
   children: React.ReactNode;
   isMobile?: boolean;
-  onClick?: () => void; // Add onClick for custom actions
+  onClick?: () => void;
 }
 
 const NavLink = React.memo(
@@ -71,7 +71,9 @@ const NavLink = React.memo(
 
 interface NavbarProps {
   setCurrentView: React.Dispatch<
-    React.SetStateAction<"hero" | "items" | "breakfast" | "dietFoods" | "lunch">
+    React.SetStateAction<
+      "hero" | "items" | "breakfast" | "dietFoods" | "lunch" | "allMenu"
+    >
   >;
 }
 
@@ -80,7 +82,7 @@ const Navbar: React.FC<NavbarProps> = ({ setCurrentView }) => {
 
   const handleHomeClick = () => {
     setCurrentView("hero");
-    setIsOpen(false); // Close mobile menu if open
+    setIsOpen(false);
   };
 
   return (
@@ -93,7 +95,6 @@ const Navbar: React.FC<NavbarProps> = ({ setCurrentView }) => {
       transition={{ duration: 0.8, ease: "easeOut" }}
     >
       <div className="container mx-auto flex justify-between items-center p-2">
-        {/* Logo */}
         <Link
           to="/"
           className="flex items-center space-x-2"
@@ -111,13 +112,11 @@ const Navbar: React.FC<NavbarProps> = ({ setCurrentView }) => {
           />
         </Link>
 
-        {/* Desktop Navigation */}
         <div className="hidden md:flex space-x-6">
           <NavLink onClick={handleHomeClick}>Home</NavLink>
           {/* <NavLink to="/admin">Admin</NavLink> */}
         </div>
 
-        {/* Mobile Menu Button */}
         <motion.button
           className="md:hidden focus:outline-none rounded-full p-2 bg-teal-700 shadow-lg"
           onClick={() => setIsOpen(!isOpen)}
@@ -134,7 +133,6 @@ const Navbar: React.FC<NavbarProps> = ({ setCurrentView }) => {
         </motion.button>
       </div>
 
-      {/* Mobile Navigation */}
       <motion.div
         className="md:hidden flex flex-col items-center space-y-4 p-4 absolute top-full left-0 w-full backdrop-blur-md"
         variants={mobileMenuVariants}

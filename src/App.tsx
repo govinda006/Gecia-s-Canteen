@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import {
-  Route,
   BrowserRouter as Router,
   Routes,
+  Route,
   useLocation,
   useNavigate,
 } from "react-router-dom";
@@ -10,8 +10,16 @@ import Loader from "./loader/loader";
 import Navbar from "./navbar/navbar";
 import Home from "./pages/Home";
 
+export type View =
+  | "hero"
+  | "items"
+  | "breakfast"
+  | "dietFoods"
+  | "lunch"
+  | "allMenu";
+
 const AppContent: React.FC = () => {
-  const [loading, setLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
   const [currentView, setCurrentView] = useState<
     "hero" | "items" | "breakfast" | "dietFoods" | "lunch" | "allMenu"
   >("hero");
@@ -19,19 +27,21 @@ const AppContent: React.FC = () => {
   const location = useLocation();
 
   useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 2000);
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
     return () => clearTimeout(timer);
   }, []);
 
   useEffect(() => {
     const validPaths = ["/"];
-    if (!validPaths.includes(location.pathname) && !loading) {
+    if (!validPaths.includes(location.pathname) && !isLoading) {
       console.log("Redirecting to / from:", location.pathname);
       navigate("/", { replace: true });
     }
-  }, [location, navigate, loading]);
+  }, [location, navigate, isLoading]);
 
-  if (loading) {
+  if (isLoading) {
     return <Loader />;
   }
 
