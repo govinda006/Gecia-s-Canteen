@@ -5,7 +5,6 @@ import { foodItems, getCurrentDayTheme } from "./items-constants";
 import "./Items.css";
 import {
   BackgroundAnimation,
-  // CurrentDate,
   FoodItemComponent,
   HideMenuButton,
   MenuDescription,
@@ -18,6 +17,7 @@ interface ItemsProps {
   onSelectBreakfast: () => void;
   onSelectDietFoods: () => void;
   onSelectLunch: () => void;
+  onSelectAllMenu: () => void; // New prop
 }
 
 const Items: React.FC<ItemsProps> = ({
@@ -25,16 +25,16 @@ const Items: React.FC<ItemsProps> = ({
   onSelectBreakfast,
   onSelectDietFoods,
   onSelectLunch,
-
+  onSelectAllMenu,
 }) => {
   const { theme, type } = getCurrentDayTheme();
-  // const currentDate = new Date().toLocaleDateString();
   const themeColor = themeColors[theme] || "#ffffff";
 
   return (
     <motion.div
       id="items-section"
       className="items-section"
+      style={{ backgroundColor: "white" }}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 1.5, ease: "easeOut" }}
@@ -42,7 +42,6 @@ const Items: React.FC<ItemsProps> = ({
       <BackgroundAnimation />
       <MenuTitle />
       <MenuDescription />
-      {/* <CurrentDate date={currentDate} /> */}
       <ThemeTitle theme={theme} type={type} color={themeColor} />
       <div className="food-items">
         {foodItems.map((foodItem, index) => (
@@ -62,7 +61,17 @@ const Items: React.FC<ItemsProps> = ({
           />
         ))}
       </div>
-      <HideMenuButton onBack={onBack} />
+      <div className="flex space-x-4 mt-4 justify-center">
+        <HideMenuButton onBack={onBack} />
+        <motion.button
+          className="p-2 bg-blue-500 text-white rounded shadow-lg"
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
+          onClick={onSelectAllMenu}
+        >
+          📋 All Menu
+        </motion.button>
+      </div>
     </motion.div>
   );
 };

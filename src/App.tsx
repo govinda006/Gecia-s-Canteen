@@ -12,6 +12,9 @@ import Home from "./pages/Home";
 
 const AppContent: React.FC = () => {
   const [loading, setLoading] = useState(true);
+  const [currentView, setCurrentView] = useState<
+    "hero" | "items" | "breakfast" | "dietFoods" | "lunch" | "allMenu"
+  >("hero");
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -20,7 +23,6 @@ const AppContent: React.FC = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  // Redirect unknown paths to "/"
   useEffect(() => {
     const validPaths = ["/"];
     if (!validPaths.includes(location.pathname) && !loading) {
@@ -35,11 +37,14 @@ const AppContent: React.FC = () => {
 
   return (
     <div style={{ backgroundColor: "#e0e0e0", minHeight: "100vh" }}>
-      <Navbar />
+      <Navbar setCurrentView={setCurrentView} />
       <Routes>
-        <Route path="/" element={<Home />} />
-        {/* Uncomment and add other top-level routes as needed */}
-        {/* <Route path="/admin" element={<Admin />} /> */}
+        <Route
+          path="/"
+          element={
+            <Home currentView={currentView} setCurrentView={setCurrentView} />
+          }
+        />
       </Routes>
     </div>
   );

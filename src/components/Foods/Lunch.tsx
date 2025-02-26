@@ -55,7 +55,7 @@ const Lunch: React.FC<LunchProps> = ({ onBack }) => {
   return (
     <motion.div
       className="lunch-section p-2 w-full min-h-screen flex flex-col items-center"
-      style={{ backgroundColor: "#054e5a" }}
+      style={{ backgroundColor: "white" }}
       variants={containerVariants}
       initial="hidden"
       animate="visible"
@@ -65,7 +65,8 @@ const Lunch: React.FC<LunchProps> = ({ onBack }) => {
         onClick={handleBackClick}
         onTouchStart={(e) => e.preventDefault()}
         onTouchEnd={handleBackClick}
-        className="p-2 mb-4 bg-blue-500 text-white rounded shadow-lg"
+        className="p-2 mb-4 bg-500 text-white rounded shadow-lg"
+        style={{ backgroundColor: "#054e5a" }}
         variants={buttonVariants}
         whileHover="hover"
         whileTap="tap"

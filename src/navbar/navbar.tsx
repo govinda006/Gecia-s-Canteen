@@ -2,7 +2,6 @@ import { motion } from "framer-motion";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
-// Animation variants for reusability
 const navVariants = {
   hidden: { opacity: 0, y: -20 },
   visible: { opacity: 1, y: 0 },
@@ -18,40 +17,71 @@ const mobileMenuVariants = {
   open: { opacity: 1, y: 0, backgroundColor: "rgba(255, 255, 255, 0.1)" },
 };
 
-// Reusable NavLink component with memoization
 interface NavLinkProps {
-  to: string;
+  to?: string; // Optional for Home link
   children: React.ReactNode;
   isMobile?: boolean;
+  onClick?: () => void; // Add onClick for custom actions
 }
 
-const NavLink = React.memo(({ to, children, isMobile = false }: NavLinkProps) => (
-  <motion.div
-    initial={isMobile ? { opacity: 0, x: -20 } : undefined}
-    animate={isMobile ? { opacity: 1, x: 0 } : undefined}
-    transition={isMobile ? { duration: 0.5, ease: "easeOut" } : undefined}
-    whileHover={{
-      scale: 1.1,
-      ...(isMobile ? { color: "#38B2AC" } : { y: -2 }),
-    }}
-    whileTap={{ scale: 0.95 }}
-    className="relative"
-  >
-    <Link to={to} className="text-lg hover:text-teal-300 transition relative">
-      {children}
-      <motion.div
-        className="absolute left-0 bottom-0 w-full h-0.5 bg-teal-300"
-        initial={{ scaleX: 0 }}
-        whileHover={{ scaleX: 1 }}
-        transition={{ duration: 0.3, ease: "easeOut" }}
-      />
-    </Link>
-  </motion.div>
-));
+const NavLink = React.memo(
+  ({ to, children, isMobile = false, onClick }: NavLinkProps) => (
+    <motion.div
+      initial={isMobile ? { opacity: 0, x: -20 } : undefined}
+      animate={isMobile ? { opacity: 1, x: 0 } : undefined}
+      transition={isMobile ? { duration: 0.5, ease: "easeOut" } : undefined}
+      whileHover={{
+        scale: 1.1,
+        ...(isMobile ? { color: "#38B2AC" } : { y: -2 }),
+      }}
+      whileTap={{ scale: 0.95 }}
+      className="relative"
+    >
+      {to ? (
+        <Link
+          to={to}
+          className="text-lg hover:text-teal-300 transition relative"
+          onClick={onClick}
+        >
+          {children}
+          <motion.div
+            className="absolute left-0 bottom-0 w-full h-0.5 bg-teal-300"
+            initial={{ scaleX: 0 }}
+            whileHover={{ scaleX: 1 }}
+            transition={{ duration: 0.3, ease: "easeOut" }}
+          />
+        </Link>
+      ) : (
+        <button
+          className="text-lg hover:text-teal-300 transition relative"
+          onClick={onClick}
+        >
+          {children}
+          <motion.div
+            className="absolute left-0 bottom-0 w-full h-0.5 bg-teal-300"
+            initial={{ scaleX: 0 }}
+            whileHover={{ scaleX: 1 }}
+            transition={{ duration: 0.3, ease: "easeOut" }}
+          />
+        </button>
+      )}
+    </motion.div>
+  )
+);
 
-// Main Navbar component
-const Navbar: React.FC = () => {
+interface NavbarProps {
+  setCurrentView: React.Dispatch<
+    React.SetStateAction<"hero" | "items" | "breakfast" | "dietFoods" | "lunch">
+  >;
+}
+
+const Navbar: React.FC<NavbarProps> = ({ setCurrentView }) => {
   const [isOpen, setIsOpen] = useState(false);
+
+  const handleHomeClick = () => {
+    setCurrentView("hero");
+    setIsOpen(false); // Close mobile menu if open
+  };
 
   return (
     <motion.nav
@@ -64,7 +94,11 @@ const Navbar: React.FC = () => {
     >
       <div className="container mx-auto flex justify-between items-center p-2">
         {/* Logo */}
-        <Link to="/" className="flex items-center space-x-2">
+        <Link
+          to="/"
+          className="flex items-center space-x-2"
+          onClick={handleHomeClick}
+        >
           <motion.img
             src="./Atlas-Logo.gif"
             alt="Logo"
@@ -79,8 +113,8 @@ const Navbar: React.FC = () => {
 
         {/* Desktop Navigation */}
         <div className="hidden md:flex space-x-6">
-          <NavLink to="/">Home</NavLink>
-          <NavLink to="/admin">Admin</NavLink>
+          <NavLink onClick={handleHomeClick}>Home</NavLink>
+          {/* <NavLink to="/admin">Admin</NavLink> */}
         </div>
 
         {/* Mobile Menu Button */}
@@ -108,7 +142,7 @@ const Navbar: React.FC = () => {
         animate={isOpen ? "open" : "closed"}
         transition={{ duration: 0.5, ease: "easeOut" }}
       >
-        <NavLink to="/" isMobile>
+        <NavLink isMobile onClick={handleHomeClick}>
           Home
         </NavLink>
         <NavLink to="/admin" isMobile>
