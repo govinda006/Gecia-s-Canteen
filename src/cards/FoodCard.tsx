@@ -26,13 +26,22 @@ const FoodCard: React.FC<FoodCardProps> = ({ name, description, kcal }) => {
         }}
       >
         <CardContent>
-          <Typography variant="h5" component="div" gutterBottom>
+          <Typography
+            variant="h5"
+            component="div"
+            gutterBottom
+            sx={{ color: "#054e5a" }}
+          >
             {name}
           </Typography>
-          <Typography variant="body2" color="text.secondary">
+          <Typography
+            variant="body2"
+            color="text.secondary"
+            sx={{ color: "#054e5a" }}
+          >
             {description}
           </Typography>
-          <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
+          <Typography variant="body2" color="text.secondary" sx={{color: "#054e5a", mt: 1 }}>
             {kcal} kcal
           </Typography>
         </CardContent>
