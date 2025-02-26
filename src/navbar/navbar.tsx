@@ -143,9 +143,9 @@ const Navbar: React.FC<NavbarProps> = ({ setCurrentView }) => {
         <NavLink isMobile onClick={handleHomeClick}>
           Home
         </NavLink>
-        <NavLink to="/admin" isMobile>
+        {/* <NavLink to="/admin" isMobile>
           Admin
-        </NavLink>
+        </NavLink> */}
       </motion.div>
     </motion.nav>
   );

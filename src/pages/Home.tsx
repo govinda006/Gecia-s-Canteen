@@ -1,11 +1,11 @@
 import React from "react";
-import { type View } from "../App"; // Use type import syntax
 import AllMenu from "../components/Foods/AllMenu";
 import Breakfast from "../components/Foods/Breakfast";
 import DietFoods from "../components/Foods/DietFoods";
 import Lunch from "../components/Foods/Lunch";
 import Hero from "../components/Hero/Hero";
 import Items from "../components/items/Items";
+import { View } from "../type";
 
 interface HomeProps {
   currentView: View;
@@ -14,17 +14,17 @@ interface HomeProps {
 
 const Home: React.FC<HomeProps> = ({ currentView, setCurrentView }) => {
   const navigateTo = (view: View) => {
-    console.log(`Switching to ${view}`);
+    console.log(`Navigating to ${view}`);
     setCurrentView(view);
   };
 
   const handleBackFromSubView = (from: string) => {
-    console.log(`Switching to Items from ${from}`);
+    console.log(`Returning to Items from ${from}`);
     setCurrentView("items");
   };
 
   return (
-    <div className="bg-gray-100 w-full min-h-screen flex justify-center items-center">
+    <div className="w-full min-h-screen flex justify-center items-center bg-gray-100">
       {currentView === "hero" && (
         <Hero onShowMenu={() => navigateTo("items")} />
       )}

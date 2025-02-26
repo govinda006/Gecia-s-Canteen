@@ -1,18 +1,7 @@
 import { motion } from "framer-motion";
 import React, { useState } from "react";
+import { DailyMenu, FoodItem } from "../../type";
 import { dummyFoods, getFoodsByDate } from "./dummy-foods";
-
-interface FoodItem {
-  name: string;
-  description: string;
-  kcal: number | string;
-}
-
-interface DailyMenu {
-  Breakfast: FoodItem[];
-  DietFoods: FoodItem[];
-  Lunch: FoodItem[];
-}
 
 interface AllMenuProps {
   onBack: () => void;
@@ -47,25 +36,24 @@ const AllMenu: React.FC<AllMenuProps> = ({ onBack }) => {
     Lunch: [],
   };
 
-  const handleBackClick = () => {
+  const handleBackClick = (e: React.MouseEvent | React.TouchEvent) => {
+    e.preventDefault();
     console.log("Back clicked, returning to Items");
     onBack();
   };
 
-  const handleDateChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedDate(e.target.value);
-  };
-
   return (
     <motion.div
-      className="all-menu-section p-4 w-full min-h-screen flex flex-col items-center bg-white"
+      className="w-full min-h-screen bg-white p-4 flex flex-col items-center relative z-10"
       variants={containerVariants}
       initial="hidden"
       animate="visible"
     >
       <motion.button
         onClick={handleBackClick}
-        className="p-2 mb-6 bg-blue-500 text-white rounded shadow-lg cursor-pointer"
+        onTouchStart={(e) => e.preventDefault()}
+        onTouchEnd={handleBackClick}
+        className="px-4 py-2 mb-6 bg-blue-500 text-white rounded-lg shadow-lg cursor-pointer"
         style={{ position: "relative", zIndex: 20 }}
         variants={buttonVariants}
         whileHover="hover"
@@ -83,11 +71,11 @@ const AllMenu: React.FC<AllMenuProps> = ({ onBack }) => {
         All Menu
       </motion.h2>
 
-      <div className="w-full max-w-4xl">
+      <div className="w-full max-w-6xl">
         <select
           className="w-full p-2 mb-6 border rounded text-gray-700"
           value={selectedDate}
-          onChange={handleDateChange}
+          onChange={(e) => setSelectedDate(e.target.value)}
         >
           {availableDates.map((date) => (
             <option key={date} value={date}>
@@ -109,12 +97,14 @@ const AllMenu: React.FC<AllMenuProps> = ({ onBack }) => {
               </h3>
               {foodData[category as keyof DailyMenu]?.length > 0 ? (
                 <ul className="list-disc pl-5">
-                  {foodData[category as keyof DailyMenu].map((item, index) => (
-                    <li key={index} className="mb-2">
-                      <strong>{item.name}</strong> - {item.description} (
-                      {item.kcal} kcal)
-                    </li>
-                  ))}
+                  {foodData[category as keyof DailyMenu].map(
+                    (item: FoodItem, index: number) => (
+                      <li key={index} className="mb-2">
+                        <strong>{item.name}</strong> - {item.description} (
+                        {item.kcal} kcal)
+                      </li>
+                    )
+                  )}
                 </ul>
               ) : (
                 <p className="text-gray-500">No items available</p>

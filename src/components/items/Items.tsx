@@ -12,7 +12,6 @@ import {
   ThemeTitle,
 } from "./MotionComponents";
 
-
 interface ItemsProps {
   onBack: () => void;
   onSelectBreakfast: () => void;
@@ -32,15 +31,14 @@ const Items: React.FC<ItemsProps> = ({
   const themeColor = themeColors[theme] || "#ffffff";
 
   const handleButtonClick = (callback: () => void, label: string) => {
-    console.log(`${label} button clicked`);
+    console.log(`${label} clicked`);
     callback();
   };
 
   return (
     <motion.div
       id="items-section"
-      className="items-section relative z-10"
-      style={{ backgroundColor: "white" }}
+      className="relative z-10 w-full min-h-screen bg-white p-4 flex flex-col items-center"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 1.5, ease: "easeOut" }}
@@ -49,12 +47,12 @@ const Items: React.FC<ItemsProps> = ({
       <MenuTitle />
       <MenuDescription />
       <ThemeTitle theme={theme} type={type} color={themeColor} />
-      <div className="food-items flex flex-wrap justify-center gap-6">
-        {foodItems.map((foodItem, index) => (
+      <div className="food-items flex flex-wrap justify-center gap-6 my-6">
+        {foodItems.map((foodItem) => (
           <FoodItemComponent
-            key={foodItem.name} // Use name for uniqueness
+            key={foodItem.name}
             foodItem={foodItem}
-            index={index}
+            index={foodItems.indexOf(foodItem)}
             onClick={
               foodItem.name === "🥞 Breakfast"
                 ? () => handleButtonClick(onSelectBreakfast, "Breakfast")
@@ -67,14 +65,16 @@ const Items: React.FC<ItemsProps> = ({
           />
         ))}
       </div>
-      <div className="flex space-x-4 mt-6 justify-center">
+      <div className="flex space-x-4 justify-center">
         <HideMenuButton onBack={() => handleButtonClick(onBack, "Hide Menu")} />
         <motion.button
           className="px-4 py-2 bg-blue-500 text-white rounded-lg shadow-lg cursor-pointer"
           style={{ position: "relative", zIndex: 20 }}
+          onTouchStart={(e) => e.preventDefault()}
+          onTouchEnd={() => handleButtonClick(onSelectAllMenu, "All Menu")}
+          onClick={() => handleButtonClick(onSelectAllMenu, "All Menu")}
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
-          onClick={() => handleButtonClick(onSelectAllMenu, "All Menu")}
         >
           📋 All Menu
         </motion.button>
