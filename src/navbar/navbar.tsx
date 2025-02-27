@@ -76,7 +76,7 @@ interface NavbarProps {
     >
   >;
   title: string;
-  onUpdateNavbar?: (title: string) => void; // Added optional prop to update title
+  onUpdateNavbar?: (title: string) => void;
 }
 
 const Navbar: React.FC<NavbarProps> = ({
@@ -90,7 +90,7 @@ const Navbar: React.FC<NavbarProps> = ({
     setCurrentView("hero");
     setIsOpen(false);
     if (onUpdateNavbar) {
-      onUpdateNavbar(""); // Clear the title when Home is clicked
+      onUpdateNavbar("");
     }
   };
 
@@ -103,7 +103,7 @@ const Navbar: React.FC<NavbarProps> = ({
       animate="visible"
       transition={{ duration: 0.8, ease: "easeOut" }}
     >
-      <div className="container mx-auto flex justify-between items-center p-2">
+      <div className="container mx-auto flex flex-wrap justify-between items-center p-2">
         <Link
           to="/"
           className="flex items-center space-x-2"
@@ -123,7 +123,7 @@ const Navbar: React.FC<NavbarProps> = ({
 
         {title && (
           <motion.span
-            className="text-xl font-bold absolute left-1/2 transform -translate-x-1/2"
+            className="text-xl font-bold md:absolute md:left-1/2 md:transform md:-translate-x-1/2 text-center w-full md:w-auto order-2 md:order-1 mt-2 md:mt-0"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.2 }}
@@ -132,25 +132,27 @@ const Navbar: React.FC<NavbarProps> = ({
           </motion.span>
         )}
 
-        <div className="hidden md:flex space-x-6">
-          <NavLink onClick={handleHomeClick}>Home</NavLink>
-          {/* <NavLink to="/admin">Admin</NavLink> */}
-        </div>
+        <div className="flex items-center order-1 md:order-2">
+          <div className="hidden md:flex space-x-6">
+            <NavLink onClick={handleHomeClick}>Home</NavLink>
+            {/* <NavLink to="/admin">Admin</NavLink> */}
+          </div>
 
-        <motion.button
-          className="md:hidden focus:outline-none rounded-full p-2 bg-teal-700 shadow-lg"
-          onClick={() => setIsOpen(!isOpen)}
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.9 }}
-          aria-label={isOpen ? "Close menu" : "Open menu"}
-        >
-          <motion.div
-            animate={{ rotate: isOpen ? 90 : 0 }}
-            transition={{ duration: 0.5 }}
+          <motion.button
+            className="md:hidden focus:outline-none rounded-full p-2 bg-teal-700 shadow-lg"
+            onClick={() => setIsOpen(!isOpen)}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+            aria-label={isOpen ? "Close menu" : "Open menu"}
           >
-            🍔
-          </motion.div>
-        </motion.button>
+            <motion.div
+              animate={{ rotate: isOpen ? 90 : 0 }}
+              transition={{ duration: 0.5 }}
+            >
+              🍔
+            </motion.div>
+          </motion.button>
+        </div>
       </div>
 
       <motion.div
