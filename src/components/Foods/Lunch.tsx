@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useState } from "react";
+import React, { memo, useEffect, useRef, useState } from "react";
 import FoodCard from "../../cards/FoodCard";
 import { getFoodsByDate } from "./dummy-foods";
 
@@ -12,8 +12,10 @@ const Lunch: React.FC<LunchProps> = ({ onBack }) => {
     DietMeal: [],
     Veg: [],
     NonVeg: [],
+    Fasting: [],
   };
   const [currentTime, setCurrentTime] = useState(new Date());
+  const contentRef = useRef<HTMLDivElement>(null); // Ref for the content area
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -21,6 +23,12 @@ const Lunch: React.FC<LunchProps> = ({ onBack }) => {
     }, 1000);
     return () => clearInterval(timer);
   }, []);
+
+  useEffect(() => {
+    if (contentRef.current) {
+      contentRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, []); // Runs once when component mounts
 
   const handleBackClick = (e: React.MouseEvent | React.TouchEvent) => {
     e.preventDefault();
@@ -66,7 +74,10 @@ const Lunch: React.FC<LunchProps> = ({ onBack }) => {
         {formattedDate} | {formattedTime}
       </p>
 
-      <div className="lunch-items w-full max-w-6xl flex flex-col gap-1 sm:gap-2">
+      <div
+        ref={contentRef} // Attach ref to the content area
+        className="lunch-items w-full max-w-6xl flex flex-col gap-1 sm:gap-2"
+      >
         {/* Diet Meal Section */}
         <div className="flex flex-col md:flex-row items-center gap-1 sm:gap-2">
           <h3 className="text-2xl sm:text-3xl font-bold text-teal-800 w-full md:w-1/4 text-center">
@@ -83,6 +94,7 @@ const Lunch: React.FC<LunchProps> = ({ onBack }) => {
                     name={item.name}
                     description={item.description}
                     kcal={item.kcal}
+                    estimatedCalories={item.estimatedCalories}
                   />
                 </div>
               ))
@@ -110,6 +122,7 @@ const Lunch: React.FC<LunchProps> = ({ onBack }) => {
                     name={item.name}
                     description={item.description}
                     kcal={item.kcal}
+                    estimatedCalories={item.estimatedCalories}
                   />
                 </div>
               ))
@@ -137,12 +150,41 @@ const Lunch: React.FC<LunchProps> = ({ onBack }) => {
                     name={item.name}
                     description={item.description}
                     kcal={item.kcal}
+                    estimatedCalories={item.estimatedCalories}
                   />
                 </div>
               ))
             ) : (
               <p className="text-gray-500 text-center text-sm sm:text-base">
                 No Non-Vegetarian items available
+              </p>
+            )}
+          </div>
+        </div>
+
+        {/* Fasting Section */}
+        <div className="flex flex-col md:flex-row items-center gap-1 sm:gap-2">
+          <h3 className="text-2xl sm:text-3xl font-bold text-teal-800 w-full md:w-1/4 text-center">
+            Fasting
+          </h3>
+          <div className="flex flex-col sm:flex-row md:flex-row flex-wrap gap-1 sm:gap-2 w-full md:w-3/4">
+            {lunchMenu.Fasting.length > 0 ? (
+              lunchMenu.Fasting.map((item) => (
+                <div
+                  key={item.name}
+                  className="lunch-item w-full sm:w-1/2 md:w-1/4 flex justify-center items-center"
+                >
+                  <FoodCard
+                    name={item.name}
+                    description={item.description}
+                    kcal={item.kcal}
+                    estimatedCalories={item.estimatedCalories}
+                  />
+                </div>
+              ))
+            ) : (
+              <p className="text-gray-500 text-center text-sm sm:text-base">
+                No Fasting items available
               </p>
             )}
           </div>

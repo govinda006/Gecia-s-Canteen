@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import FoodCard from "../../cards/FoodCard";
 import { getFoodsByDate } from "../Foods/dummy-foods";
 
@@ -10,15 +10,21 @@ interface BreakfastProps {
 const Breakfast: React.FC<BreakfastProps> = ({ onBack }) => {
   const currentDate = new Date().toISOString().split("T")[0];
   const breakfastItems = getFoodsByDate(currentDate).Breakfast || [];
-
   const [currentTime, setCurrentTime] = useState(new Date());
+  const contentRef = useRef<HTMLDivElement>(null); // Ref for the content area
 
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentTime(new Date());
-    }, 1000); // Update every second
-    return () => clearInterval(timer); // Cleanup on unmount
+    }, 1000);
+    return () => clearInterval(timer);
   }, []);
+
+  useEffect(() => {
+    if (contentRef.current) {
+      contentRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, []); // Runs once when component mounts
 
   const handleBackClick = (e: React.MouseEvent | React.TouchEvent) => {
     e.preventDefault();
@@ -26,7 +32,6 @@ const Breakfast: React.FC<BreakfastProps> = ({ onBack }) => {
     onBack();
   };
 
-  // Format date and time for display
   const formattedDate = currentTime.toLocaleDateString("en-US", {
     weekday: "long",
     year: "numeric",
@@ -41,7 +46,7 @@ const Breakfast: React.FC<BreakfastProps> = ({ onBack }) => {
 
   return (
     <motion.div
-      className="w-full min-h-screen bg-gray-100 p-4 flex flex-col items-center relative z-10"
+      className="w-full min-h-screen bg-gray-100 p-2 sm:p-4 flex flex-col items-center relative z-10"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 1.5, ease: "easeOut" }}
@@ -50,19 +55,22 @@ const Breakfast: React.FC<BreakfastProps> = ({ onBack }) => {
         onClick={handleBackClick}
         onTouchStart={(e) => e.preventDefault()}
         onTouchEnd={handleBackClick}
-        className="px-4 py-2 mb-6 bg-[#054e5a] text-white rounded-lg shadow-lg cursor-pointer"
+        className="px-3 py-1 sm:px-4 sm:py-2 mb-4 sm:mb-6 bg-[#054e5a] text-white rounded-lg shadow-lg cursor-pointer text-sm sm:text-base"
         style={{ position: "relative", zIndex: 20 }}
-        whileHover={{ scale: 1.1, backgroundColor: "#043c45" }} // Slightly darker shade for hover
+        whileHover={{ scale: 1.1, backgroundColor: "#043c45" }}
         whileTap={{ scale: 0.9 }}
       >
         Back
       </motion.button>
 
-      <h2 className="text-3xl font-bold mb-2" style={{ color: "#054e5a" }}>
+      <h2
+        className="text-xl sm:text-2xl md:text-3xl font-bold mb-2 text-center"
+        style={{ color: "#054e5a" }}
+      >
         Breakfast Menu
       </h2>
       <motion.p
-        className="text-lg text-gray-700 mb-6"
+        className="text-sm sm:text-base md:text-lg text-gray-700 mb-4 sm:mb-6 text-center"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.2 }}
@@ -70,7 +78,10 @@ const Breakfast: React.FC<BreakfastProps> = ({ onBack }) => {
         {formattedDate} | {formattedTime}
       </motion.p>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full max-w-6xl">
+      <div
+        ref={contentRef} // Attach ref to the content area
+        className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 w-full max-w-full sm:max-w-6xl px-2 sm:px-0"
+      >
         {breakfastItems.map((item) => (
           <motion.div
             key={item.name}
@@ -80,17 +91,14 @@ const Breakfast: React.FC<BreakfastProps> = ({ onBack }) => {
               duration: 0.5,
               delay: breakfastItems.indexOf(item) * 0.2,
             }}
-            whileHover={{
-              scale: 1.05,
-              rotate: 3,
-              boxShadow: "0px 0px 15px rgba(0, 255, 255, 0.8)",
-            }}
             whileTap={{ scale: 0.95 }}
+            className="flex justify-center"
           >
             <FoodCard
               name={item.name}
               description={item.description}
               kcal={item.kcal}
+              estimatedCalories={item.estimatedCalories}
             />
           </motion.div>
         ))}

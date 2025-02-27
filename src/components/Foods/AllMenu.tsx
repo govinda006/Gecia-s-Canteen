@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { DailyMenu, FoodItem } from "../../type";
 import { dummyFoods, getFoodsByDate } from "./dummy-foods";
 
@@ -14,10 +14,11 @@ const AllMenu: React.FC<AllMenuProps> = ({ onBack }) => {
     : availableDates[0] || "";
   const [selectedDate, setSelectedDate] = useState<string>(initialDate);
   const [currentTime, setCurrentTime] = useState(new Date());
+  const contentRef = useRef<HTMLDivElement>(null); // Ref for the content area
 
   const foodData: DailyMenu = getFoodsByDate(selectedDate) || {
     Breakfast: [],
-    Lunch: { DietMeal: [], Veg: [], NonVeg: [] },
+    Lunch: { DietMeal: [], Veg: [], NonVeg: [], Fasting: [] },
   };
 
   useEffect(() => {
@@ -27,13 +28,18 @@ const AllMenu: React.FC<AllMenuProps> = ({ onBack }) => {
     return () => clearInterval(timer);
   }, []);
 
+  useEffect(() => {
+    if (contentRef.current) {
+      contentRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, []); // Runs once when component mounts
+
   const handleBackClick = (e: React.MouseEvent | React.TouchEvent) => {
     e.preventDefault();
     console.log("Back clicked, returning to Items");
     onBack();
   };
 
-  // Format date and time for display
   const formattedDate = currentTime.toLocaleDateString("en-US", {
     weekday: "long",
     year: "numeric",
@@ -84,6 +90,7 @@ const AllMenu: React.FC<AllMenuProps> = ({ onBack }) => {
         </select>
 
         <div
+          ref={contentRef} // Attach ref to the content area
           className="grid grid-cols-1 md:grid-cols-2 gap-6"
           style={{ color: "rgb(5, 78, 90)" }}
         >
@@ -100,7 +107,11 @@ const AllMenu: React.FC<AllMenuProps> = ({ onBack }) => {
                 {foodData.Breakfast.map((item: FoodItem) => (
                   <li key={item.name} className="mb-2">
                     <strong>{item.name}</strong> - {item.description} (
-                    {item.kcal} kcal)
+                    {item.kcal} kcal
+                    {item.estimatedCalories !== undefined
+                      ? `, Est. ${item.estimatedCalories} kcal`
+                      : ""}
+                    )
                   </li>
                 ))}
               </ul>
@@ -131,7 +142,11 @@ const AllMenu: React.FC<AllMenuProps> = ({ onBack }) => {
                     {foodData.Lunch.DietMeal.map((item: FoodItem) => (
                       <li key={item.name} className="mb-2">
                         <strong>{item.name}</strong> - {item.description} (
-                        {item.kcal} kcal)
+                        {item.kcal} kcal
+                        {item.estimatedCalories !== undefined
+                          ? `, Est. ${item.estimatedCalories} kcal`
+                          : ""}
+                        )
                       </li>
                     ))}
                   </ul>
@@ -153,7 +168,11 @@ const AllMenu: React.FC<AllMenuProps> = ({ onBack }) => {
                     {foodData.Lunch.Veg.map((item: FoodItem) => (
                       <li key={item.name} className="mb-2">
                         <strong>{item.name}</strong> - {item.description} (
-                        {item.kcal} kcal)
+                        {item.kcal} kcal
+                        {item.estimatedCalories !== undefined
+                          ? `, Est. ${item.estimatedCalories} kcal`
+                          : ""}
+                        )
                       </li>
                     ))}
                   </ul>
@@ -175,12 +194,42 @@ const AllMenu: React.FC<AllMenuProps> = ({ onBack }) => {
                     {foodData.Lunch.NonVeg.map((item: FoodItem) => (
                       <li key={item.name} className="mb-2">
                         <strong>{item.name}</strong> - {item.description} (
-                        {item.kcal} kcal)
+                        {item.kcal} kcal
+                        {item.estimatedCalories !== undefined
+                          ? `, Est. ${item.estimatedCalories} kcal`
+                          : ""}
+                        )
                       </li>
                     ))}
                   </ul>
                 ) : (
                   <p>No Non-Vegetarian items available</p>
+                )}
+              </div>
+
+              {/* Fasting Subsection */}
+              <div>
+                <h4
+                  className="text-lg font-medium mb-1"
+                  style={{ color: "rgb(5, 78, 90)" }}
+                >
+                  Fasting
+                </h4>
+                {foodData.Lunch.Fasting.length > 0 ? (
+                  <ul className="list-disc pl-5">
+                    {foodData.Lunch.Fasting.map((item: FoodItem) => (
+                      <li key={item.name} className="mb-2">
+                        <strong>{item.name}</strong> - {item.description} (
+                        {item.kcal} kcal
+                        {item.estimatedCalories !== undefined
+                          ? `, Est. ${item.estimatedCalories} kcal`
+                          : ""}
+                        )
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <p>No Fasting items available</p>
                 )}
               </div>
             </div>

@@ -1,5 +1,5 @@
 import { Card, CardContent, Typography } from "@mui/material";
-import { styled } from "@mui/material/styles"; // Import styled for custom styling
+import { styled } from "@mui/material/styles";
 import { motion } from "framer-motion";
 import React from "react";
 
@@ -7,46 +7,56 @@ interface FoodCardProps {
   name: string;
   description: string;
   kcal: number | string;
+  estimatedCalories?: number;
 }
 
-// Create a styled CardContent to remove bottom padding for the last child
 const CustomCardContent = styled(CardContent)(({ theme }) => ({
-  padding: "4px", // Minimal padding as requested
+  padding: "8px",
   "&:last-child": {
-    paddingBottom: 0, // Remove bottom padding for the last CardContent
+    paddingBottom: "8px",
   },
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "center",
+  alignItems: "center",
+  minHeight: "100px",
 }));
 
-const FoodCard: React.FC<FoodCardProps> = ({ name, description, kcal }) => {
+const FoodCard: React.FC<FoodCardProps> = ({
+  name,
+  description,
+  kcal,
+  estimatedCalories,
+}) => {
   return (
     <motion.div
-      whileTap={{ scale: 0.95 }} // Kept tap effect, no hover as requested
+      whileTap={{ scale: 0.95 }}
       transition={{ type: "spring", stiffness: 300 }}
+      style={{ width: "100%", maxWidth: "200px" }}
     >
       <Card
         sx={{
-          width: 200, // Fixed width, constant regardless of content
-          maxWidth: 200, // Ensure it doesn’t stretch beyond 200px
-          margin: "0", // No margin for minimal spacing
-          borderRadius: "8px", // Slightly smaller radius for consistency
+          width: { xs: "100%", sm: 200 },
+          maxWidth: "100%",
+          margin: "0",
+          borderRadius: "8px",
           overflow: "hidden",
-          backgroundColor: "#f8f9fa", // Consistent background
+          backgroundColor: "#f8f9fa",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
         }}
       >
         <CustomCardContent>
-          {" "}
-          {/* Use custom styled component for padding control */}
           <Typography
-            variant="h6" // Smaller heading for better fit
+            variant="h6"
             component="div"
-            gutterBottom
             sx={{
-              color: "#054e5a", // Consistent color
-              marginBottom: "2px", // Minimal spacing
-              fontSize: "1rem", // Reduced font size for readability
-              whiteSpace: "nowrap", // Prevent text from wrapping
-              overflow: "hidden", // Hide overflow
-              textOverflow: "ellipsis", // Add ellipsis for overflow
+              color: "#054e5a",
+              fontSize: { xs: "0.9rem", sm: "1rem" }, // Responsive font size
+              fontWeight: "bold !important", // Ensure bold applies universally, overriding any defaults
+              textAlign: "center",
+              marginBottom: "4px",
             }}
           >
             {name}
@@ -55,11 +65,10 @@ const FoodCard: React.FC<FoodCardProps> = ({ name, description, kcal }) => {
             variant="body2"
             color="text.secondary"
             sx={{
-              color: "#054e5a", // Consistent color
-              fontSize: "0.875rem", // Reduced font size for readability
-              whiteSpace: "nowrap", // Prevent text from wrapping
-              overflow: "hidden", // Hide overflow
-              textOverflow: "ellipsis", // Add ellipsis for overflow
+              color: "#054e5a",
+              fontSize: { xs: "0.75rem", sm: "0.875rem" },
+              textAlign: "center",
+              marginBottom: "4px",
             }}
           >
             {description}
@@ -68,16 +77,27 @@ const FoodCard: React.FC<FoodCardProps> = ({ name, description, kcal }) => {
             variant="body2"
             color="text.secondary"
             sx={{
-              color: "#054e5a", // Consistent color
-              mt: "2px", // Minimal spacing
-              fontSize: "0.875rem", // Reduced font size for readability
-              whiteSpace: "nowrap", // Prevent text from wrapping
-              overflow: "hidden", // Hide overflow
-              textOverflow: "ellipsis", // Add ellipsis for overflow
+              color: "#054e5a",
+              fontSize: { xs: "0.75rem", sm: "0.875rem" },
+              textAlign: "center",
+              marginBottom: "4px",
             }}
           >
             {kcal} kcal
           </Typography>
+          {estimatedCalories !== undefined && (
+            <Typography
+              variant="body2"
+              color="text.secondary"
+              sx={{
+                color: "#054e5a",
+                fontSize: { xs: "0.75rem", sm: "0.875rem" },
+                textAlign: "center",
+              }}
+            >
+              Est. {estimatedCalories} kcal
+            </Typography>
+          )}
         </CustomCardContent>
       </Card>
     </motion.div>
