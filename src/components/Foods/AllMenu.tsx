@@ -133,7 +133,13 @@ const AllMenu: React.FC<AllMenuProps> = ({ onBack }) => {
               <div>
                 <h4
                   className="text-lg font-medium mb-1"
-                  style={{ color: "rgb(5, 78, 90)" }}
+                  style={{
+                    color: "white",
+                    backgroundColor: "teal",
+                    padding: "5px",
+                    borderRadius: "5px",
+                    display: "inline",
+                  }}
                 >
                   Diet Meal
                 </h4>
@@ -159,7 +165,13 @@ const AllMenu: React.FC<AllMenuProps> = ({ onBack }) => {
               <div>
                 <h4
                   className="text-lg font-medium mb-1"
-                  style={{ color: "rgb(5, 78, 90)" }}
+                  style={{
+                    color: "white",
+                    backgroundColor: "teal",
+                    padding: "5px",
+                    borderRadius: "5px",
+                    display: "inline",
+                  }}
                 >
                   Vegetarian
                 </h4>
@@ -185,7 +197,13 @@ const AllMenu: React.FC<AllMenuProps> = ({ onBack }) => {
               <div>
                 <h4
                   className="text-lg font-medium mb-1"
-                  style={{ color: "rgb(5, 78, 90)" }}
+                  style={{
+                    color: "white",
+                    backgroundColor: "teal",
+                    padding: "5px",
+                    borderRadius: "5px",
+                    display: "inline",
+                  }}
                 >
                   Non-Vegetarian
                 </h4>
@@ -211,7 +229,13 @@ const AllMenu: React.FC<AllMenuProps> = ({ onBack }) => {
               <div>
                 <h4
                   className="text-lg font-medium mb-1"
-                  style={{ color: "rgb(5, 78, 90)" }}
+                  style={{
+                    color: "white",
+                    backgroundColor: "teal",
+                    padding: "5px",
+                    borderRadius: "5px",
+                    display: "inline",
+                  }}
                 >
                   Fasting
                 </h4>

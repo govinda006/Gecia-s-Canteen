@@ -52,9 +52,12 @@ const FoodCard: React.FC<FoodCardProps> = ({
             variant="h6"
             component="div"
             sx={{
-              color: "#054e5a",
-              fontSize: { xs: "0.9rem", sm: "1rem" }, // Responsive font size
-              fontWeight: "bold !important", // Ensure bold applies universally, overriding any defaults
+              borderRadius: "5px",
+              padding: "5px",
+              color: "white",
+              backgroundColor: "teal",
+              fontSize: { xs: "0.9rem", sm: "1rem" },
+              fontWeight: "bold !important",
               textAlign: "center",
               marginBottom: "4px",
             }}
