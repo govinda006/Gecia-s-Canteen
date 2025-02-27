@@ -9,7 +9,7 @@ import { View } from "../type";
 interface HomeProps {
   currentView: View;
   setCurrentView: React.Dispatch<React.SetStateAction<View>>;
-  onUpdateNavbar: (title: string) => void; // Added prop to update navbar title
+  onUpdateNavbar: (title: string) => void;
 }
 
 const Home: React.FC<HomeProps> = ({
@@ -20,6 +20,9 @@ const Home: React.FC<HomeProps> = ({
   const navigateTo = (view: View) => {
     console.log(`Navigating to ${view}`);
     setCurrentView(view);
+    if (view === "hero") {
+      onUpdateNavbar(""); // Clear title when going to hero
+    }
   };
 
   const handleBackFromSubView = (from: string) => {
@@ -31,8 +34,10 @@ const Home: React.FC<HomeProps> = ({
     <div className="w-full min-h-screen flex justify-center items-center bg-gray-100">
       {currentView === "hero" && (
         <Hero
-          onShowMenu={() => navigateTo("items")}
-          onUpdateNavbar={onUpdateNavbar} // Pass the prop to Hero
+          onShowMenu={() => {
+            navigateTo("items");
+            onUpdateNavbar("GECIA's CANTEEN");
+          }}
         />
       )}
       {currentView === "items" && (

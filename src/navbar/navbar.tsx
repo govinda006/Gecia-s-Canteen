@@ -75,15 +75,23 @@ interface NavbarProps {
       "hero" | "items" | "breakfast" | "dietFoods" | "lunch" | "allMenu"
     >
   >;
-  title: string; // Added title prop
+  title: string;
+  onUpdateNavbar?: (title: string) => void; // Added optional prop to update title
 }
 
-const Navbar: React.FC<NavbarProps> = ({ setCurrentView, title }) => {
+const Navbar: React.FC<NavbarProps> = ({
+  setCurrentView,
+  title,
+  onUpdateNavbar,
+}) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleHomeClick = () => {
     setCurrentView("hero");
     setIsOpen(false);
+    if (onUpdateNavbar) {
+      onUpdateNavbar(""); // Clear the title when Home is clicked
+    }
   };
 
   return (
@@ -113,15 +121,16 @@ const Navbar: React.FC<NavbarProps> = ({ setCurrentView, title }) => {
           />
         </Link>
 
-        {/* Center the title */}
-        <motion.span
-          className="text-xl font-bold absolute left-1/2 transform -translate-x-1/2"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-        >
-          {title}
-        </motion.span>
+        {title && (
+          <motion.span
+            className="text-xl font-bold absolute left-1/2 transform -translate-x-1/2"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+          >
+            {title}
+          </motion.span>
+        )}
 
         <div className="hidden md:flex space-x-6">
           <NavLink onClick={handleHomeClick}>Home</NavLink>
