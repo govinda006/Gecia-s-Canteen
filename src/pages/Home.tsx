@@ -9,9 +9,14 @@ import { View } from "../type";
 interface HomeProps {
   currentView: View;
   setCurrentView: React.Dispatch<React.SetStateAction<View>>;
+  onUpdateNavbar: (title: string) => void; // Added prop to update navbar title
 }
 
-const Home: React.FC<HomeProps> = ({ currentView, setCurrentView }) => {
+const Home: React.FC<HomeProps> = ({
+  currentView,
+  setCurrentView,
+  onUpdateNavbar,
+}) => {
   const navigateTo = (view: View) => {
     console.log(`Navigating to ${view}`);
     setCurrentView(view);
@@ -25,7 +30,10 @@ const Home: React.FC<HomeProps> = ({ currentView, setCurrentView }) => {
   return (
     <div className="w-full min-h-screen flex justify-center items-center bg-gray-100">
       {currentView === "hero" && (
-        <Hero onShowMenu={() => navigateTo("items")} />
+        <Hero
+          onShowMenu={() => navigateTo("items")}
+          onUpdateNavbar={onUpdateNavbar} // Pass the prop to Hero
+        />
       )}
       {currentView === "items" && (
         <Items

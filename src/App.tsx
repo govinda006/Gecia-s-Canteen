@@ -14,6 +14,7 @@ import { View } from "./type";
 const AppContent: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [currentView, setCurrentView] = useState<View>("hero");
+  const [navbarTitle, setNavbarTitle] = useState<string>("Gecia's Canteen"); // Default title
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -33,18 +34,27 @@ const AppContent: React.FC = () => {
     }
   }, [location, navigate, isLoading]);
 
+  // Function to update navbar title
+  const handleUpdateNavbar = (title: string) => {
+    setNavbarTitle(title);
+  };
+
   if (isLoading) {
     return <Loader />;
   }
 
   return (
     <div className="min-h-screen bg-gray-100">
-      <Navbar setCurrentView={setCurrentView} />
+      <Navbar setCurrentView={setCurrentView} title={navbarTitle} />
       <Routes>
         <Route
           path="/"
           element={
-            <Home currentView={currentView} setCurrentView={setCurrentView} />
+            <Home
+              currentView={currentView}
+              setCurrentView={setCurrentView}
+              onUpdateNavbar={handleUpdateNavbar} // Pass the update function
+            />
           }
         />
       </Routes>

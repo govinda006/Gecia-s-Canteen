@@ -70,7 +70,7 @@ const Lunch: React.FC<LunchProps> = ({ onBack }) => {
       <div className="lunch-items w-full max-w-6xl grid grid-cols-1 md:grid-cols-3 gap-8">
         {/* Diet Meal Section */}
         <div>
-          <h3 className="text-2xl font-semibold mb-4 text-green-600 text-center">
+          <h3 className="text-2xl font-bold mb-4 text-teal-800 text-center">
             Diet Meal
           </h3>
           <div className="flex flex-col gap-6 items-center">
@@ -97,7 +97,7 @@ const Lunch: React.FC<LunchProps> = ({ onBack }) => {
 
         {/* Vegetarian Section */}
         <div>
-          <h3 className="text-2xl font-semibold mb-4 text-orange-600 text-center">
+          <h3 className="text-2xl font-bold mb-4 text-teal-800 text-center">
             Vegetarian
           </h3>
           <div className="flex flex-col gap-6 items-center">
@@ -124,7 +124,7 @@ const Lunch: React.FC<LunchProps> = ({ onBack }) => {
 
         {/* Non-Vegetarian Section */}
         <div>
-          <h3 className="text-2xl font-semibold mb-4 text-red-600 text-center">
+          <h3 className="text-2xl font-bold mb-4 text-teal-800 text-center">
             Non-Vegetarian
           </h3>
           <div className="flex flex-col gap-6 items-center">

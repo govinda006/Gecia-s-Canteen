@@ -2,25 +2,24 @@ import { motion } from "framer-motion";
 import React from "react";
 import styles from "./Hero.module.css"; // Import CSS module
 
-// const foodVariants = {
-//   initial: { y: 0 },
-//   animate: {
-//     y: [0, -15, 0], // Floating effect
-//     transition: {
-//       duration: 2.5,
-//       repeat: Infinity,
-//       ease: "easeInOut",
-//     },
-//   },
-// };
-
 interface HeroProps {
   onShowMenu: () => void; // Function to handle showing the menu
+  onUpdateNavbar?: (title: string) => void; // Optional callback to update navbar
 }
 
-const Hero: React.FC<HeroProps> = ({ onShowMenu }) => {
+const Hero: React.FC<HeroProps> = ({ onShowMenu, onUpdateNavbar }) => {
+  const handleExploreMenuClick = () => {
+    // Trigger the existing onShowMenu function
+    onShowMenu();
+
+    // Update the navbar with "Gecia's Canteen" if the callback exists
+    if (onUpdateNavbar) {
+      onUpdateNavbar("Gecia's Canteen");
+    }
+  };
+
   return (
-    <motion.section // Use <section> for better semantics
+    <motion.section
       className={`${styles.heroSection} w-full min-h-screen flex flex-col items-center justify-center px-6 relative overflow-hidden`}
       style={{ backgroundColor: "White" }}
       initial={{ opacity: 0 }}
@@ -39,53 +38,6 @@ const Hero: React.FC<HeroProps> = ({ onShowMenu }) => {
       <div
         className={`absolute top-0 left-0 w-full h-full ${styles.backgroundGlow}`}
       ></div>
-
-      {/* Floating Food Elements */}
-      {/* <motion.img
-        src="https://img.icons8.com/color/96/pizza.png"
-        alt="Floating Pizza"
-        className={`absolute top-16 left-10 w-14 md:w-20 ${styles.floatingElement}`}
-        variants={foodVariants}
-        initial="initial"
-        animate="animate"
-        whileHover={{ rotate: 360 }}
-      />
-      <motion.img
-        src="https://img.icons8.com/color/96/hamburger.png"
-        alt="Floating Burger"
-        className={`absolute top-32 right-10 w-16 md:w-24 ${styles.floatingElement}`}
-        variants={foodVariants}
-        initial="initial"
-        animate="animate"
-        whileHover={{ rotate: -360 }}
-      />
-      <motion.img
-        src="https://img.icons8.com/color/96/salad.png"
-        alt="Floating Salad"
-        className={`absolute bottom-16 left-1/4 w-14 md:w-20 ${styles.floatingElement}`}
-        variants={foodVariants}
-        initial="initial"
-        animate="animate"
-        whileHover={{ scale: 1.2 }}
-      />
-      <motion.img
-        src="https://img.icons8.com/color/96/sushi.png"
-        alt="Floating Sushi"
-        className={`absolute bottom-24 right-20 w-14 md:w-20 ${styles.floatingElement}`}
-        variants={foodVariants}
-        initial="initial"
-        animate="animate"
-        whileHover={{ y: -10 }}
-      />
-      <motion.img
-        src="https://img.icons8.com/color/96/doughnut.png"
-        alt="Floating Doughnut"
-        className={`absolute bottom-10 left-10 w-12 md:w-16 ${styles.floatingElement}`}
-        variants={foodVariants}
-        initial="initial"
-        animate="animate"
-        whileHover={{ rotate: 180, scale: 1.1 }}
-      /> */}
 
       {/* Hero Text */}
       <motion.h1
@@ -125,7 +77,7 @@ const Hero: React.FC<HeroProps> = ({ onShowMenu }) => {
           whileHover={{ scale: 1.1, y: -5 }}
           style={{ color: "#054e5a", borderColor: "#054e5a" }}
           whileTap={{ scale: 0.9 }}
-          onClick={onShowMenu} // Call onShowMenu to show Items
+          onClick={handleExploreMenuClick} // Updated to handle both actions
         >
           🍽 Explore Menu
         </motion.button>

@@ -75,9 +75,10 @@ interface NavbarProps {
       "hero" | "items" | "breakfast" | "dietFoods" | "lunch" | "allMenu"
     >
   >;
+  title: string; // Added title prop
 }
 
-const Navbar: React.FC<NavbarProps> = ({ setCurrentView }) => {
+const Navbar: React.FC<NavbarProps> = ({ setCurrentView, title }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleHomeClick = () => {
@@ -111,6 +112,16 @@ const Navbar: React.FC<NavbarProps> = ({ setCurrentView }) => {
             whileHover={{ scale: 1.1, rotate: 10 }}
           />
         </Link>
+
+        {/* Center the title */}
+        <motion.span
+          className="text-xl font-bold absolute left-1/2 transform -translate-x-1/2"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+        >
+          {title}
+        </motion.span>
 
         <div className="hidden md:flex space-x-6">
           <NavLink onClick={handleHomeClick}>Home</NavLink>
