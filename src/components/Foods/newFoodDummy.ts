@@ -1,21 +1,21 @@
-export interface FoodItem {
+interface FoodItem {
   name: string;
   description: string;
   kcal: number | string;
 }
 
-export interface LunchMenu {
+interface LunchMenu {
   DietMeal: FoodItem[];
   Veg: FoodItem[];
   NonVeg: FoodItem[];
 }
 
-export interface DailyMenu {
+interface DailyMenu {
   Breakfast: FoodItem[];
   Lunch: LunchMenu;
 }
 
-export interface FoodData {
+interface FoodData {
   [date: string]: DailyMenu;
 }
 

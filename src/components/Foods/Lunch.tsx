@@ -1,43 +1,6 @@
-import { motion } from "framer-motion";
 import React, { memo, useEffect, useState } from "react";
 import FoodCard from "../../cards/FoodCard";
 import { getFoodsByDate } from "./dummy-foods";
-
-// Animation Variants
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: { opacity: 1, transition: { duration: 1.5, ease: "easeOut" } },
-};
-
-const buttonVariants = {
-  hover: { scale: 1.1, backgroundColor: "red" },
-  tap: { scale: 0.9 },
-};
-
-const headingVariants = {
-  hidden: { opacity: 0, y: -30, scale: 0.8 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    scale: 1,
-    transition: { duration: 1, ease: "easeOut" },
-  },
-  hover: {
-    scale: 1.2,
-    color: "#FF5733",
-    textShadow: "0px 0px 8px rgba(255, 87, 51, 0.8)",
-  },
-};
-
-const cardVariants = {
-  hidden: { opacity: 0, scale: 0.5 },
-  visible: (index: number) => ({
-    opacity: 1,
-    scale: 1,
-    transition: { duration: 0.5, ease: "easeOut", delay: index * 0.2 },
-  }),
-  hover: { scale: 1.05, boxShadow: "0px 5px 15px rgba(0, 0, 0, 0.2)" },
-};
 
 interface LunchProps {
   onBack: () => void;
@@ -45,14 +8,18 @@ interface LunchProps {
 
 const Lunch: React.FC<LunchProps> = ({ onBack }) => {
   const currentDate = new Date().toISOString().split("T")[0];
-  const lunchItems = getFoodsByDate(currentDate).Lunch || [];
+  const lunchMenu = getFoodsByDate(currentDate).Lunch || {
+    DietMeal: [],
+    Veg: [],
+    NonVeg: [],
+  };
   const [currentTime, setCurrentTime] = useState(new Date());
 
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentTime(new Date());
-    }, 1000); // Update every second
-    return () => clearInterval(timer); // Cleanup on unmount
+    }, 1000);
+    return () => clearInterval(timer);
   }, []);
 
   const handleBackClick = (e: React.MouseEvent | React.TouchEvent) => {
@@ -75,73 +42,114 @@ const Lunch: React.FC<LunchProps> = ({ onBack }) => {
   });
 
   return (
-    <motion.div
+    <div
       className="lunch-section p-2 w-full min-h-screen flex flex-col items-center"
       style={{ backgroundColor: "white" }}
-      variants={containerVariants}
-      initial="hidden"
-      animate="visible"
     >
-      <motion.button
+      <button
         onClick={handleBackClick}
         onTouchStart={(e) => e.preventDefault()}
         onTouchEnd={handleBackClick}
-        className="p-2 mb-4 bg-blue-500 text-white rounded shadow-lg cursor-pointer"
+        className="p-2 mb-4 bg-[#054e5a] text-white rounded shadow-lg cursor-pointer"
         style={{ position: "relative", zIndex: 20 }}
-        variants={buttonVariants}
-        whileHover="hover"
-        whileTap="tap"
       >
         Back
-      </motion.button>
+      </button>
 
-      <motion.h2
-        className="text-3xl font-bold mb-2 text-blue-700 flex justify-center"
-        variants={headingVariants}
-        initial="hidden"
-        animate="visible"
-        whileHover="hover"
+      <h2
+        className="text-3xl font-bold mb-2 flex justify-center"
+        style={{ color: "#054e5a" }}
       >
         Lunch Menu
-      </motion.h2>
+      </h2>
 
-      <motion.p
-        className="text-lg text-gray-700 mb-6"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.2 }}
-      >
+      <p className="text-lg text-gray-700 mb-6">
         {formattedDate} | {formattedTime}
-      </motion.p>
+      </p>
 
-      <motion.div
-        className="lunch-items grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 justify-center w-full max-w-6xl"
-        initial="hidden"
-        animate="visible"
-        variants={{
-          hidden: { opacity: 0 },
-          visible: { opacity: 1, transition: { staggerChildren: 0.2 } },
-        }}
-      >
-        {lunchItems.map((item, index) => (
-          <motion.div
-            key={item.name} // Changed to use item.name for uniqueness
-            className="lunch-item w-fit flex justify-center items-center"
-            custom={index}
-            variants={cardVariants}
-            initial="hidden"
-            animate="visible"
-            whileHover="hover"
-          >
-            <FoodCard
-              name={item.name}
-              description={item.description}
-              kcal={item.kcal}
-            />
-          </motion.div>
-        ))}
-      </motion.div>
-    </motion.div>
+      <div className="lunch-items w-full max-w-6xl grid grid-cols-1 md:grid-cols-3 gap-8">
+        {/* Diet Meal Section */}
+        <div>
+          <h3 className="text-2xl font-semibold mb-4 text-green-600 text-center">
+            Diet Meal
+          </h3>
+          <div className="flex flex-col gap-6 items-center">
+            {lunchMenu.DietMeal.length > 0 ? (
+              lunchMenu.DietMeal.map((item) => (
+                <div
+                  key={item.name}
+                  className="lunch-item w-fit flex justify-center items-center"
+                >
+                  <FoodCard
+                    name={item.name}
+                    description={item.description}
+                    kcal={item.kcal}
+                  />
+                </div>
+              ))
+            ) : (
+              <p className="text-gray-500 text-center">
+                No Diet Meal items available
+              </p>
+            )}
+          </div>
+        </div>
+
+        {/* Vegetarian Section */}
+        <div>
+          <h3 className="text-2xl font-semibold mb-4 text-orange-600 text-center">
+            Vegetarian
+          </h3>
+          <div className="flex flex-col gap-6 items-center">
+            {lunchMenu.Veg.length > 0 ? (
+              lunchMenu.Veg.map((item) => (
+                <div
+                  key={item.name}
+                  className="lunch-item w-fit flex justify-center items-center"
+                >
+                  <FoodCard
+                    name={item.name}
+                    description={item.description}
+                    kcal={item.kcal}
+                  />
+                </div>
+              ))
+            ) : (
+              <p className="text-gray-500 text-center">
+                No Vegetarian items available
+              </p>
+            )}
+          </div>
+        </div>
+
+        {/* Non-Vegetarian Section */}
+        <div>
+          <h3 className="text-2xl font-semibold mb-4 text-red-600 text-center">
+            Non-Vegetarian
+          </h3>
+          <div className="flex flex-col gap-6 items-center">
+            {lunchMenu.NonVeg.length > 0 ? (
+              lunchMenu.NonVeg.map((item) => (
+                <div
+                  key={item.name}
+                  className="lunch-item w-fit flex justify-center items-center"
+                >
+                  <FoodCard
+                    name={item.name}
+                    description={item.description}
+                    kcal={item.kcal}
+                  />
+                </div>
+              ))
+            ) : (
+              <p className="text-gray-500 text-center">
+                No Non-Vegetarian items available
+              </p>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
   );
 };
 

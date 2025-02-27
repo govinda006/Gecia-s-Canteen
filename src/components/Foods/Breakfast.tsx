@@ -50,15 +50,17 @@ const Breakfast: React.FC<BreakfastProps> = ({ onBack }) => {
         onClick={handleBackClick}
         onTouchStart={(e) => e.preventDefault()}
         onTouchEnd={handleBackClick}
-        className="px-4 py-2 mb-6 bg-blue-500 text-white rounded-lg shadow-lg cursor-pointer"
+        className="px-4 py-2 mb-6 bg-[#054e5a] text-white rounded-lg shadow-lg cursor-pointer"
         style={{ position: "relative", zIndex: 20 }}
-        whileHover={{ scale: 1.1, backgroundColor: "#2563eb" }}
+        whileHover={{ scale: 1.1, backgroundColor: "#043c45" }} // Slightly darker shade for hover
         whileTap={{ scale: 0.9 }}
       >
         Back
       </motion.button>
 
-      <h2 className="text-3xl font-bold mb-2 text-blue-700">Breakfast Menu</h2>
+      <h2 className="text-3xl font-bold mb-2" style={{ color: "#054e5a" }}>
+        Breakfast Menu
+      </h2>
       <motion.p
         className="text-lg text-gray-700 mb-6"
         initial={{ opacity: 0, y: 20 }}

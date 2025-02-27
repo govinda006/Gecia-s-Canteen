@@ -1,7 +1,6 @@
 import React from "react";
 import AllMenu from "../components/Foods/AllMenu";
 import Breakfast from "../components/Foods/Breakfast";
-import DietFoods from "../components/Foods/DietFoods";
 import Lunch from "../components/Foods/Lunch";
 import Hero from "../components/Hero/Hero";
 import Items from "../components/items/Items";
@@ -32,16 +31,12 @@ const Home: React.FC<HomeProps> = ({ currentView, setCurrentView }) => {
         <Items
           onBack={() => navigateTo("hero")}
           onSelectBreakfast={() => navigateTo("breakfast")}
-          onSelectDietFoods={() => navigateTo("dietFoods")}
           onSelectLunch={() => navigateTo("lunch")}
           onSelectAllMenu={() => navigateTo("allMenu")}
         />
       )}
       {currentView === "breakfast" && (
         <Breakfast onBack={() => handleBackFromSubView("Breakfast")} />
-      )}
-      {currentView === "dietFoods" && (
-        <DietFoods onBack={() => handleBackFromSubView("Diet Foods")} />
       )}
       {currentView === "lunch" && (
         <Lunch onBack={() => handleBackFromSubView("Lunch")} />

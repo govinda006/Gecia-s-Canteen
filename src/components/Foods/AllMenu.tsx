@@ -1,26 +1,10 @@
-import { motion } from "framer-motion";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { DailyMenu, FoodItem } from "../../type";
 import { dummyFoods, getFoodsByDate } from "./dummy-foods";
 
 interface AllMenuProps {
   onBack: () => void;
 }
-
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: { opacity: 1, transition: { duration: 1.5, ease: "easeOut" } },
-};
-
-const buttonVariants = {
-  hover: { scale: 1.1, backgroundColor: "red" },
-  tap: { scale: 0.9 },
-};
-
-const listVariants = {
-  closed: { opacity: 0, height: 0 },
-  open: { opacity: 1, height: "auto", transition: { duration: 0.3 } },
-};
 
 const AllMenu: React.FC<AllMenuProps> = ({ onBack }) => {
   const currentDate = new Date().toISOString().split("T")[0];
@@ -29,12 +13,19 @@ const AllMenu: React.FC<AllMenuProps> = ({ onBack }) => {
     ? currentDate
     : availableDates[0] || "";
   const [selectedDate, setSelectedDate] = useState<string>(initialDate);
+  const [currentTime, setCurrentTime] = useState(new Date());
 
-  const foodData: DailyMenu = (getFoodsByDate(selectedDate) as DailyMenu) || {
+  const foodData: DailyMenu = getFoodsByDate(selectedDate) || {
     Breakfast: [],
-    DietFoods: [],
-    Lunch: [],
+    Lunch: { DietMeal: [], Veg: [], NonVeg: [] },
   };
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentTime(new Date());
+    }, 1000);
+    return () => clearInterval(timer);
+  }, []);
 
   const handleBackClick = (e: React.MouseEvent | React.TouchEvent) => {
     e.preventDefault();
@@ -42,38 +33,46 @@ const AllMenu: React.FC<AllMenuProps> = ({ onBack }) => {
     onBack();
   };
 
+  // Format date and time for display
+  const formattedDate = currentTime.toLocaleDateString("en-US", {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+  const formattedTime = currentTime.toLocaleTimeString("en-US", {
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+  });
+
   return (
-    <motion.div
-      className="w-full min-h-screen bg-white p-4 flex flex-col items-center relative z-10"
-      variants={containerVariants}
-      initial="hidden"
-      animate="visible"
-    >
-      <motion.button
+    <div className="w-full min-h-screen bg-white p-4 flex flex-col items-center relative z-10">
+      <button
         onClick={handleBackClick}
         onTouchStart={(e) => e.preventDefault()}
         onTouchEnd={handleBackClick}
-        className="px-4 py-2 mb-6 bg-blue-500 text-white rounded-lg shadow-lg cursor-pointer"
+        className="px-4 py-2 mb-6 bg-[rgb(5,78,90)] text-white rounded-lg shadow-lg cursor-pointer"
         style={{ position: "relative", zIndex: 20 }}
-        variants={buttonVariants}
-        whileHover="hover"
-        whileTap="tap"
       >
         Back
-      </motion.button>
+      </button>
 
-      <motion.h2
-        className="text-3xl font-bold mb-6 text-blue-700"
-        initial={{ opacity: 0, y: -30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1 }}
+      <h2
+        className="text-3xl font-bold mb-6"
+        style={{ color: "rgb(5, 78, 90)" }}
       >
         All Menu
-      </motion.h2>
+      </h2>
+
+      <p className="text-lg mb-6" style={{ color: "rgb(5, 78, 90)" }}>
+        {formattedDate} | {formattedTime}
+      </p>
 
       <div className="w-full max-w-6xl">
         <select
-          className="w-full p-2 mb-6 border rounded text-gray-700"
+          className="w-full p-2 mb-6 border rounded"
+          style={{ color: "rgb(5, 78, 90)" }}
           value={selectedDate}
           onChange={(e) => setSelectedDate(e.target.value)}
         >
@@ -84,36 +83,111 @@ const AllMenu: React.FC<AllMenuProps> = ({ onBack }) => {
           ))}
         </select>
 
-        <motion.div
-          className="grid grid-cols-1 md:grid-cols-3 gap-6 text-gray-800"
-          variants={listVariants}
-          initial="closed"
-          animate="open"
+        <div
+          className="grid grid-cols-1 md:grid-cols-2 gap-6"
+          style={{ color: "rgb(5, 78, 90)" }}
         >
-          {["Breakfast", "DietFoods", "Lunch"].map((category) => (
-            <div key={category} className="flex flex-col">
-              <h3 className="text-xl font-semibold text-blue-600 mb-2">
-                {category}
-              </h3>
-              {foodData[category as keyof DailyMenu]?.length > 0 ? (
-                <ul className="list-disc pl-5">
-                  {foodData[category as keyof DailyMenu].map(
-                    (item: FoodItem, index: number) => (
-                      <li key={index} className="mb-2">
+          {/* Breakfast Section */}
+          <div className="flex flex-col">
+            <h3
+              className="text-xl font-semibold mb-2"
+              style={{ color: "rgb(5, 78, 90)" }}
+            >
+              Breakfast
+            </h3>
+            {foodData.Breakfast.length > 0 ? (
+              <ul className="list-disc pl-5">
+                {foodData.Breakfast.map((item: FoodItem) => (
+                  <li key={item.name} className="mb-2">
+                    <strong>{item.name}</strong> - {item.description} (
+                    {item.kcal} kcal)
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p>No items available</p>
+            )}
+          </div>
+
+          {/* Lunch Section */}
+          <div className="flex flex-col">
+            <h3
+              className="text-xl font-semibold mb-2"
+              style={{ color: "rgb(5, 78, 90)" }}
+            >
+              Lunch
+            </h3>
+            <div className="flex flex-col gap-4">
+              {/* Diet Meal Subsection */}
+              <div>
+                <h4
+                  className="text-lg font-medium mb-1"
+                  style={{ color: "rgb(5, 78, 90)" }}
+                >
+                  Diet Meal
+                </h4>
+                {foodData.Lunch.DietMeal.length > 0 ? (
+                  <ul className="list-disc pl-5">
+                    {foodData.Lunch.DietMeal.map((item: FoodItem) => (
+                      <li key={item.name} className="mb-2">
                         <strong>{item.name}</strong> - {item.description} (
                         {item.kcal} kcal)
                       </li>
-                    )
-                  )}
-                </ul>
-              ) : (
-                <p className="text-gray-500">No items available</p>
-              )}
+                    ))}
+                  </ul>
+                ) : (
+                  <p>No Diet Meal items available</p>
+                )}
+              </div>
+
+              {/* Vegetarian Subsection */}
+              <div>
+                <h4
+                  className="text-lg font-medium mb-1"
+                  style={{ color: "rgb(5, 78, 90)" }}
+                >
+                  Vegetarian
+                </h4>
+                {foodData.Lunch.Veg.length > 0 ? (
+                  <ul className="list-disc pl-5">
+                    {foodData.Lunch.Veg.map((item: FoodItem) => (
+                      <li key={item.name} className="mb-2">
+                        <strong>{item.name}</strong> - {item.description} (
+                        {item.kcal} kcal)
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <p>No Vegetarian items available</p>
+                )}
+              </div>
+
+              {/* Non-Vegetarian Subsection */}
+              <div>
+                <h4
+                  className="text-lg font-medium mb-1"
+                  style={{ color: "rgb(5, 78, 90)" }}
+                >
+                  Non-Vegetarian
+                </h4>
+                {foodData.Lunch.NonVeg.length > 0 ? (
+                  <ul className="list-disc pl-5">
+                    {foodData.Lunch.NonVeg.map((item: FoodItem) => (
+                      <li key={item.name} className="mb-2">
+                        <strong>{item.name}</strong> - {item.description} (
+                        {item.kcal} kcal)
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <p>No Non-Vegetarian items available</p>
+                )}
+              </div>
             </div>
-          ))}
-        </motion.div>
+          </div>
+        </div>
       </div>
-    </motion.div>
+    </div>
   );
 };
 
