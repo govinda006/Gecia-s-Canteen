@@ -40,7 +40,9 @@ const NavLink = React.memo(
       {to ? (
         <Link
           to={to}
-          className="text-lg hover:text-teal-300 transition relative"
+          className={`text-lg hover:text-teal-300 transition relative ${
+            isMobile ? "text-[#054e5a]" : ""
+          }`}
           onClick={onClick}
         >
           {children}
@@ -53,7 +55,9 @@ const NavLink = React.memo(
         </Link>
       ) : (
         <button
-          className="text-lg hover:text-teal-300 transition relative"
+          className={`text-lg hover:text-teal-300 transition relative ${
+            isMobile ? "text-[#054e5a]" : ""
+          }`}
           onClick={onClick}
         >
           {children}
