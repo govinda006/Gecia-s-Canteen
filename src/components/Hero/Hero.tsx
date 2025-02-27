@@ -14,7 +14,7 @@ const Hero: React.FC<HeroProps> = ({ onShowMenu, onUpdateNavbar }) => {
 
     // Update the navbar with "Gecia's Canteen" if the callback exists
     if (onUpdateNavbar) {
-      onUpdateNavbar("Gecia's Canteen");
+      onUpdateNavbar("GECIA's CANTEEN");
     }
   };
 
