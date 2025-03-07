@@ -8,7 +8,7 @@ interface BreakfastProps {
 }
 
 const Breakfast: React.FC<BreakfastProps> = ({ onBack }) => {
-  const currentDate = new Date().toISOString().split("T")[0];
+  const currentDate = new Date().toISOString().split("T")[0]; // e.g., "2025-03-03"
   const breakfastItems = getFoodsByDate(currentDate).Breakfast || [];
   const [currentTime, setCurrentTime] = useState(new Date());
   const contentRef = useRef<HTMLDivElement>(null); // Ref for the content area
@@ -79,8 +79,8 @@ const Breakfast: React.FC<BreakfastProps> = ({ onBack }) => {
       </motion.p>
 
       <div
-        ref={contentRef} // Attach ref to the content area
-        className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 w-full max-w-full sm:max-w-6xl px-2 sm:px-0"
+        ref={contentRef}
+        className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 px-2 sm:px-4"
       >
         {breakfastItems.map((item) => (
           <motion.div
@@ -99,6 +99,7 @@ const Breakfast: React.FC<BreakfastProps> = ({ onBack }) => {
               description={item.description}
               kcal={item.kcal}
               estimatedCalories={item.estimatedCalories}
+              photo={item.photo}
             />
           </motion.div>
         ))}

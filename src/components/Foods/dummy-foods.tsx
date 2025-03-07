@@ -3,6 +3,7 @@ export interface FoodItem {
   description: string;
   kcal: number | string;
   estimatedCalories?: number; // Optional field for estimated calories
+  photo?: string; // New optional field for image URL
 }
 
 export interface LunchMenu {
@@ -22,31 +23,39 @@ export interface FoodData {
 }
 
 export const dummyFoods: FoodData = {
-  "2025-02-25": {
+  "2025-03-03": {
     Breakfast: [
       {
-        name: "Dal Wada",
-        description: "Curd, Kara Chutney, Sambar",
-        kcal: 349,
-        estimatedCalories: 350,
+        name: "Oats Upma",
+        description: "Oats with mixed vegetables, mild spices",
+        kcal: 180,
+        estimatedCalories: 180,
+        photo:
+          "https://images.pexels.com/photos/5560763/pexels-photo-5560763.jpeg?auto=compress&cs=tinysrgb&w=500", // Similar to oats upma
       },
       {
-        name: "Meduwada",
-        description: "Curd, Kara Chutney, Sambar",
-        kcal: 349,
-        estimatedCalories: 350,
+        name: "Vegetable Poha",
+        description: "Flattened rice with peas, carrots, and turmeric",
+        kcal: 200,
+        estimatedCalories: 200,
+        photo:
+          "https://images.pexels.com/photos/5560763/pexels-photo-5560763.jpeg?auto=compress&cs=tinysrgb&w=500", // Exact: Vegetable poha
       },
       {
         name: "Fruits",
-        description: "Fruits",
+        description: "Mixed seasonal fruits",
         kcal: "N/A",
-        estimatedCalories: 80, // Average for a small serving of mixed fruits
+        estimatedCalories: 80,
+        photo:
+          "https://images.pexels.com/photos/1132047/pexels-photo-1132047.jpeg?auto=compress&cs=tinysrgb&w=500", // Exact: Mixed fruit bowl
       },
       {
-        name: "Tea",
-        description: "Tea - 100 ml",
-        kcal: "N/A",
-        estimatedCalories: 5, // Plain tea, minimal calories
+        name: "Green Tea",
+        description: "Unsweetened green tea - 100 ml",
+        kcal: 0,
+        estimatedCalories: 0,
+        photo:
+          "https://images.pexels.com/photos/1417945/pexels-photo-1417945.jpeg?auto=compress&cs=tinysrgb&w=500", // Similar: Tea cup
       },
     ],
     Lunch: {
@@ -108,38 +117,39 @@ export const dummyFoods: FoodData = {
       ],
     },
   },
-  "2025-02-26": {
+  "2025-03-04": {
     Breakfast: [
       {
-        name: "Onion Poha",
-        description: "Sambar",
-        kcal: 333,
-        estimatedCalories: 335,
+        name: "Moong Dal Cheela",
+        description: "Lentil pancake with spinach and spices",
+        kcal: 150,
+        estimatedCalories: 150,
+        photo:
+          "https://images.pexels.com/photos/7231979/pexels-photo-7231979.jpeg?auto=compress&cs=tinysrgb&w=500", // Similar: Lentil pancake
       },
       {
-        name: "Bread Omelet",
-        description: "Sambar",
-        kcal: 333,
-        estimatedCalories: 335,
+        name: "Ragi Porridge",
+        description: "Finger millet with milk and jaggery",
+        kcal: 200,
+        estimatedCalories: 200,
+        photo:
+          "https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=500", // Similar: Porridge
       },
       {
         name: "Fruits",
-        description: "Fruits",
+        description: "Mixed seasonal fruits",
         kcal: "N/A",
         estimatedCalories: 80,
+        photo:
+          "https://images.pexels.com/photos/1132047/pexels-photo-1132047.jpeg?auto=compress&cs=tinysrgb&w=500", // Exact: Mixed fruit bowl
       },
       {
-        name: "Tea",
-        description: "Tea - 100 ml",
-        kcal: "N/A",
-        estimatedCalories: 5,
-      },
-      {
-        name: "Additional",
-        description:
-          "150 kcal, Calories Breakdown: 44% fat, 47% carbs, 8% prot.",
-        kcal: "N/A",
-        estimatedCalories: 150, // Based on the description
+        name: "Herbal Tea",
+        description: "Unsweetened tulsi tea - 100 ml",
+        kcal: 0,
+        estimatedCalories: 0,
+        photo:
+          "https://images.pexels.com/photos/1417945/pexels-photo-1417945.jpeg?auto=compress&cs=tinysrgb&w=500", // Similar: Tea cup
       },
     ],
     Lunch: {
@@ -201,32 +211,39 @@ export const dummyFoods: FoodData = {
       ],
     },
   },
-  "2025-02-27": {
+  "2025-03-05": {
     Breakfast: [
       {
-        name: "Misal Pav",
-        description: "Farsan",
-        kcal: 288,
-        estimatedCalories: 290,
+        name: "Sprouts Salad",
+        description: "Moong sprouts, cucumber, tomato, lemon",
+        kcal: 120,
+        estimatedCalories: 120,
+        photo:
+          "https://images.pexels.com/photos/7231982/pexels-photo-7231982.jpeg?auto=compress&cs=tinysrgb&w=500", // Similar: Sprouts dish
+      },
+      {
+        name: "Whole Grain Toast",
+        description: "Multigrain bread with avocado",
+        kcal: 160,
+        estimatedCalories: 160,
+        photo:
+          "https://images.pexels.com/photos/416471/pexels-photo-416471.jpeg?auto=compress&cs=tinysrgb&w=500", // Similar: Toast
       },
       {
         name: "Fruits",
-        description: "Fruits",
+        description: "Mixed seasonal fruits",
         kcal: "N/A",
         estimatedCalories: 80,
+        photo:
+          "https://images.pexels.com/photos/1132047/pexels-photo-1132047.jpeg?auto=compress&cs=tinysrgb&w=500", // Exact: Mixed fruit bowl
       },
       {
-        name: "Tea",
-        description: "Tea - 100 ml",
-        kcal: "N/A",
-        estimatedCalories: 5,
-      },
-      {
-        name: "Additional",
-        description:
-          "593 calories, Calories Breakdown: 48% carbs, 10% protein, 42% fat",
-        kcal: "N/A",
-        estimatedCalories: 593, // Based on the description
+        name: "Green Tea",
+        description: "Unsweetened green tea - 100 ml",
+        kcal: 0,
+        estimatedCalories: 0,
+        photo:
+          "https://images.pexels.com/photos/1417945/pexels-photo-1417945.jpeg?auto=compress&cs=tinysrgb&w=500", // Similar: Tea cup
       },
     ],
     Lunch: {
@@ -288,32 +305,39 @@ export const dummyFoods: FoodData = {
       ],
     },
   },
-  "2025-02-28": {
+  "2025-03-06": {
     Breakfast: [
       {
-        name: "Butter Onion Uttapa",
-        description: "Sambar, Coconut Chutney",
-        kcal: "200-250",
-        estimatedCalories: 225, // Average of the range
+        name: "Besan Cheela",
+        description: "Chickpea flour pancake with tomatoes and herbs",
+        kcal: 140,
+        estimatedCalories: 140,
+        photo:
+          "https://images.pexels.com/photos/7231979/pexels-photo-7231979.jpeg?auto=compress&cs=tinysrgb&w=500", // Similar: Cheela
+      },
+      {
+        name: "Dalia Upma",
+        description: "Broken wheat with veggies and spices",
+        kcal: 170,
+        estimatedCalories: 170,
+        photo:
+          "https://images.pexels.com/photos/5560763/pexels-photo-5560763.jpeg?auto=compress&cs=tinysrgb&w=500", // Similar: Upma
       },
       {
         name: "Fruits",
-        description: "Fruits",
+        description: "Mixed seasonal fruits",
         kcal: "N/A",
         estimatedCalories: 80,
+        photo:
+          "https://images.pexels.com/photos/1132047/pexels-photo-1132047.jpeg?auto=compress&cs=tinysrgb&w=500", // Exact: Mixed fruit bowl
       },
       {
-        name: "Tea",
-        description: "Tea - 100 ml",
-        kcal: "N/A",
-        estimatedCalories: 5,
-      },
-      {
-        name: "Additional",
-        description:
-          "150 kcal, Calories Breakdown: 44% fat, 47% carbs, 8% prot.",
-        kcal: "N/A",
-        estimatedCalories: 150, // Based on the description
+        name: "Herbal Tea",
+        description: "Unsweetened tulsi tea - 100 ml",
+        kcal: 0,
+        estimatedCalories: 0,
+        photo:
+          "https://images.pexels.com/photos/1417945/pexels-photo-1417945.jpeg?auto=compress&cs=tinysrgb&w=500", // Similar: Tea cup
       },
     ],
     Lunch: {
@@ -374,32 +398,39 @@ export const dummyFoods: FoodData = {
       ],
     },
   },
-  "2025-03-01": {
+  "2025-03-07": {
     Breakfast: [
       {
-        name: "Podi Idli",
-        description: "Kara Chutney, Sambar",
-        kcal: 174,
-        estimatedCalories: 175,
+        name: "Multigrain Idli",
+        description: "Steamed idli made with millets and lentils",
+        kcal: 150,
+        estimatedCalories: 150,
+        photo:
+          "https://images.pexels.com/photos/7231980/pexels-photo-7231980.jpeg?auto=compress&cs=tinysrgb&w=500", // Similar: Idli
+      },
+      {
+        name: "Chia Seed Pudding",
+        description: "Chia seeds with almond milk and berries",
+        kcal: 180,
+        estimatedCalories: 180,
+        photo:
+          "https://images.pexels.com/photos/7231982/pexels-photo-7231982.jpeg?auto=compress&cs=tinysrgb&w=500", // Similar: Pudding
       },
       {
         name: "Fruits",
-        description: "Fruits",
+        description: "Mixed seasonal fruits",
         kcal: "N/A",
         estimatedCalories: 80,
+        photo:
+          "https://images.pexels.com/photos/1132047/pexels-photo-1132047.jpeg?auto=compress&cs=tinysrgb&w=500", // Exact: Mixed fruit bowl
       },
       {
-        name: "Tea",
-        description: "Tea - 100 ml",
-        kcal: "N/A",
-        estimatedCalories: 5,
-      },
-      {
-        name: "Additional",
-        description:
-          "3 idli calories (174 kcal) + 146 sugars, 150 kcal, Calories Breakdown: 44% fat, 47% carbs, 8% prot.",
-        kcal: "N/A",
-        estimatedCalories: 320, // 174 (idli) + 146 (sugars) rounded
+        name: "Green Tea",
+        description: "Unsweetened green tea - 100 ml",
+        kcal: 0,
+        estimatedCalories: 0,
+        photo:
+          "https://images.pexels.com/photos/1417945/pexels-photo-1417945.jpeg?auto=compress&cs=tinysrgb&w=500", // Similar: Tea cup
       },
     ],
     Lunch: {

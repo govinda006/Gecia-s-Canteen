@@ -8,6 +8,7 @@ interface FoodCardProps {
   description: string;
   kcal: number | string;
   estimatedCalories?: number;
+  photo?: string; // Added photo prop
 }
 
 const CustomCardContent = styled(CardContent)(({ theme }) => ({
@@ -27,6 +28,7 @@ const FoodCard: React.FC<FoodCardProps> = ({
   description,
   kcal,
   estimatedCalories,
+  photo,
 }) => {
   return (
     <motion.div
@@ -47,6 +49,19 @@ const FoodCard: React.FC<FoodCardProps> = ({
           justifyContent: "center",
         }}
       >
+        {photo && (
+          <img
+            src={photo}
+            alt={name}
+            style={{
+              width: "100%",
+              height: "120px", // Fixed height for consistency
+              objectFit: "cover", // Ensures image scales nicely
+              borderTopLeftRadius: "8px", // Matches card border radius
+              borderTopRightRadius: "8px",
+            }}
+          />
+        )}
         <CustomCardContent>
           <Typography
             variant="h6"
